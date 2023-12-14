@@ -15,9 +15,9 @@ services:
       - "${PORT}:443"
     volumes:
       - ./:/levels
-    #depends_on:
-      #- website
-      #- backend
+    depends_on:
+      - website
+      - backend
 
   mysql:
     image: mysql
@@ -40,20 +40,19 @@ services:
 
   website:
     container_name: website
-    #restart: on-failure
-    restart: always
+    restart: on-failure
     build:
       context: .
       dockerfile: docker/website/Dockerfile
     command: ["npm", "run", "start"]
 
-  #backend:
-    #container_name: backend
-    #restart: on-failure
-    #build:
-    #  context: .
-    #  dockerfile: docker/backend/Dockerfile
-    #depends_on:
-    #  mysql:
-    #    condition: service_healthy
-    #command: ["npm", "run", "start"]
+  backend:
+    container_name: backend
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: ["npm", "run", "start"]

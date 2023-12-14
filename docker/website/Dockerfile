@@ -5,4 +5,4 @@ COPY --chown=node:node . /levels
 
 WORKDIR /levels/website
 
-RUN npm ci && npm run build
+RUN npm install && npm run build
