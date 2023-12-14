@@ -16,9 +16,9 @@ services:
     volumes:
       - ./:/levels
     depends_on:
-      - website
+      - frontend
       - backend
-
+      
   mysql:
     image: mysql
     container_name: mysql
