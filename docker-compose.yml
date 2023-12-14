@@ -14,7 +14,10 @@ services:
     ports:
       - "${PORT}:443"
     volumes:
-      - ./:/emerald
+      - ./:/levels
+    #depends_on:
+      #- website
+      #- backend
 
   mysql:
     image: mysql
@@ -29,22 +32,28 @@ services:
       - "${DATABASE_PORT}:3306"
     volumes:
       - ./docker/data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
 
   website:
     container_name: website
-    restart: on-failure
+    #restart: on-failure
+    restart: always
     build:
       context: .
       dockerfile: docker/website/Dockerfile
     command: ["npm", "run", "start"]
 
-  api:
-    container_name: api
-    restart: on-failure
-    build:
-      context: .
-      dockerfile: docker/backend/Dockerfile
-    depends_on:
-      mysql:
-        condition: service_healthy
-    command: ["npm", "run", "start"]
+  #backend:
+    #container_name: backend
+    #restart: on-failure
+    #build:
+    #  context: .
+    #  dockerfile: docker/backend/Dockerfile
+    #depends_on:
+    #  mysql:
+    #    condition: service_healthy
+    #command: ["npm", "run", "start"]
