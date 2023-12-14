@@ -3,6 +3,6 @@ USER node
 
 COPY --chown=node:node . /levels
 
-WORKDIR /levels/website
+WORKDIR /levels/frontend
 
 RUN npm install && npm run build

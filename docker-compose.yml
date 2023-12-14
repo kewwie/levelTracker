@@ -38,12 +38,12 @@ services:
       timeout: 10s
       retries: 5
 
-  website:
+  frontend:
     container_name: website
     restart: on-failure
     build:
       context: .
-      dockerfile: docker/website/Dockerfile
+      dockerfile: docker/frontend/Dockerfile
     command: ["npm", "run", "start"]
 
   backend:
