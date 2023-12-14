@@ -1,0 +1,50 @@
+version: "3"
+name: "levels"
+
+services:
+  nginx:
+    container_name: nginx
+    restart: always
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+      args:
+        - DOMAIN=${DOMAIN}
+        - PORT=${PORT}
+    ports:
+      - "${PORT}:443"
+    volumes:
+      - ./:/emerald
+
+  mysql:
+    image: mysql
+    container_name: mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_ROOT_PASSWORD}
+      MYSQL_DATABASE: levels
+      MYSQL_USER: levels
+      MYSQL_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+      - "${DATABASE_PORT}:3306"
+    volumes:
+      - ./docker/data:/var/lib/mysql
+
+  website:
+    container_name: website
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: docker/website/Dockerfile
+    command: ["npm", "run", "start"]
+
+  api:
+    container_name: api
+    restart: on-failure
+    build:
+      context: .
+      dockerfile: docker/backend/Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: ["npm", "run", "start"]
