@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:20
 USER node
 
 COPY --chown=node:node . /levels
