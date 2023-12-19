@@ -38,6 +38,15 @@ services:
       timeout: 10s
       retries: 5
 
+  migrate:
+    image: boxfuse/flyway:latest
+    command: ["-url=jdbc:mysql://mysql:${DATABASE_PORT}/levels", "-user=levels", "-password=${DATABASE_PASSWORD}", "migrate"]
+    volumes:
+      - ./docker/migrate:/migrate
+    depends_on:
+      mysql:
+        condition: service_healthy
+
   frontend:
     container_name: frontend
     restart: on-failure
