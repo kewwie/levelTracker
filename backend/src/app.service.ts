@@ -5,4 +5,8 @@ export class AppService {
   getHello(): string {
     return 'Hello World!';
   }
+
+  getKew(): string {
+    return "This service was created by k3wwie";
+  }
 }
