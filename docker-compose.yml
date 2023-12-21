@@ -7,7 +7,7 @@ services:
     restart: always
     build:
       context: .
-      dockerfile: docker/nginx/Dockerfile
+      dockerfile: nginx/Dockerfile
       args:
         - DOMAIN=${DOMAIN:?DOMAIN}
         - PORT=${PORT:?PORT}
@@ -31,7 +31,7 @@ services:
     ports:
       - "${DATABASE_PORT}:3306"
     volumes:
-      - ./docker/data:/var/lib/mysql
+      - ./mysql:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
       timeout: 20s
@@ -50,16 +50,16 @@ services:
     container_name: frontend
     restart: on-failure
     build:
-      context: .
-      dockerfile: docker/frontend/Dockerfile
+      context: ./frontend
+      dockerfile: .docker/Dockerfile
     command: ["npm", "run", "start"]
 
   backend:
     container_name: backend
     restart: on-failure
     build:
-      context: .
-      dockerfile: docker/backend/Dockerfile
+      context: ./backend
+      dockerfile: .docker/Dockerfile
     depends_on:
       mysql:
         condition: service_healthy
