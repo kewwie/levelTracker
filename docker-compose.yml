@@ -38,6 +38,7 @@ services:
       retries: 10
 
   migrate:
+    container_name: migrate
     image: flyway/flyway:latest
     command: ["-url=jdbc:mysql://mysql:${DATABASE_PORT:?}/levels", "-user=root", "-password=${DATABASE_ROOT_PASSWORD:?}", "migrate"]
     volumes:
