@@ -1,5 +1,4 @@
 FROM nginx:latest
-#:mainline-alpine
 
 # Set values for conf file
 ARG DOMAIN
