@@ -37,27 +37,20 @@ services:
       timeout: 20s
       retries: 10
 
-  migrate:
-    container_name: migrate
-    image: flyway/flyway:latest
-    command: ["-url=jdbc:mysql://mysql:${DATABASE_PORT:?}/levels", "-user=root", "-password=${DATABASE_ROOT_PASSWORD:?}", "migrate"]
-    volumes:
-      - ./docker/migrate:/flyway/sql
-    depends_on:
-      mysql:
-        condition: service_healthy
-
   frontend:
     container_name: frontend
-    restart: on-failure
+    restart: unless-stopped
     build:
       context: ./frontend
       dockerfile: .docker/Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
     command: ["npm", "run", "start"]
 
   backend:
     container_name: backend
-    restart: on-failure
+    restart: unless-stopped
     build:
       context: ./backend
       dockerfile: .docker/Dockerfile
