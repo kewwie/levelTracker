@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { dataSource } from "./dataSource";
+import { dataSource } from "./datasource";
 import { GuildEntity } from "./entities/guild";
 
 
