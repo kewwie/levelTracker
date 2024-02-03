@@ -32,33 +32,33 @@ export class Member {
     @Column()
     xp: number;
 
-    @Column({ type: Number, default: true })
-    averageXp: number = 0;
+    @Column()
+    averageXp: number;
 
-    @Column({ type: Number, default: true })
-    hourlyXp: number = 0;
+    @Column()
+    hourlyXp: number;
 
-    @Column({ type: Number, default: true })
-    dailyXp: number = 0;
+    @Column()
+    dailyXp: number;
     
-    @Column({ type: Number, default: true })
-    weeklyXp: number = 0;
+    @Column()
+    weeklyXp: number;
 
-    @Column({ type: Number, default: true })
-    monthlyXp: number = 0;
+    @Column()
+    monthlyXp: number;
 
     @Column()
     messages: number
 
-    @Column({ type: Number, default: true })
-    hourlyMsg: number = 0;
+    @Column()
+    hourlyMsg: number;
 
-    @Column({ type: Number, default: true })
-    dailyMsg: number = 0;
+    @Column()
+    dailyMsg: number;
 
-    @Column({ type: Number, default: true })
-    weeklyMsg: number = 0;
+    @Column()
+    weeklyMsg: number;
 
-    @Column({ type: Number, default: true })
-    monthlyMsg: number = 0;
+    @Column()
+    monthlyMsg: number;
 }
