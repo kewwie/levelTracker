@@ -32,10 +32,6 @@ services:
       - "${DATABASE_PORT:?}:${DATABASE_PORT:?}"
     volumes:
       - ./mysql:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-      timeout: 1s
-      retries: 50
 
   migrate:
     container_name: migrate
@@ -43,9 +39,6 @@ services:
     build:
       context: .
       dockerfile: ./backend/.docker/Dockerfile
-    depends_on:
-      mysql:
-        condition: service_healthy
     command: ["npm", "run", "migrate:run"]
 
   frontend:
