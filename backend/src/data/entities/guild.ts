@@ -1,20 +1,17 @@
-import { Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
 export class Member {
-    @PrimaryGeneratedColumn()
-    id: number;
-
-    @Column({ type: "varchar", length: "255" })
+    @PrimaryColumn()
     guildId: string;
 
-    @Column({ type: "varchar", length: "255" })
+    @Column()
     name: string;
 
-    @Column({ type: "varchar", length: "255", nullable: true })
+    @Column({ type: String, nullable: true })
     iconUrl: string | null;
 
-    @Column({ type: "varchar", length: "50"})
+    @Column()
     type: string;
     
     @Column({ type: Boolean, default: true })
