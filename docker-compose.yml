@@ -57,4 +57,4 @@ services:
     depends_on:
       mysql:
         condition: service_healthy
-    command: ["npm", "run", "start"]
+    command: ["npm", "run", "migrate:run", "&", "npm", "run", "start"]
