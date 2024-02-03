@@ -14,6 +14,6 @@ export class Member {
     @Column()
     type: string;
     
-    @Column({ type: Boolean, default: true })
-    active: boolean = true;
+    @Column()
+    active: boolean;
 }

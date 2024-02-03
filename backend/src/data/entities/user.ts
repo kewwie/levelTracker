@@ -17,6 +17,6 @@ export class Member {
     @Column({ type: String, nullable: true })
     avatarUrl: string | null;
 
-    @Column({ type: Boolean, default: true })
-    developer: Boolean = false;
+    @Column()
+    developer: Boolean;
 }
