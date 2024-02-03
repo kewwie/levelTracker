@@ -8,16 +8,10 @@ export class CreateGuild1706920291601 implements MigrationInterface {
                 name: "guild",
                 columns: [
                     {
-                        name: "id",
-                        type: "int",
-                        isPrimary: true,
-                        isGenerated: true,
-                        generationStrategy: "increment",
-                    },
-                    {
                         name: "guildId",
-                        type: "varchar",
-                        length: "255"
+                        type: "int",
+                        unsigned: true,
+                        isPrimary: true
                     },
                     {
                         name: "name",
@@ -37,8 +31,9 @@ export class CreateGuild1706920291601 implements MigrationInterface {
                     },
                     {
                         name: "active",
-                        type: "boolean",
-                        default: true
+                        type: "tinyint",
+                        unsigned: true,
+                        default: 1,
                     }
                 ]
             })

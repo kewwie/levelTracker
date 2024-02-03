@@ -10,6 +10,7 @@ export class CreateUser1706921675343 implements MigrationInterface {
                     {
                         name: "userId",
                         type: "int",
+                        unsigned: true,
                         isPrimary: true
                     },
                     {
@@ -35,8 +36,9 @@ export class CreateUser1706921675343 implements MigrationInterface {
                     },
                     {
                         name: "developer",
-                        type: "boolean",
-                        default: false
+                        type: "tinyint",
+                        unsigned: true,
+                        default: 0,
                     }
                 ]
             })
