@@ -16,4 +16,7 @@ export class Member {
     
     @Column()
     active: boolean;
+
+    @Column()
+    prefix: string;
 }
