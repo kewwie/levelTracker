@@ -19,4 +19,6 @@ npm run migrate:run
 ```
 
 ### Revert Migrations
-Someday ill fix
+```
+npm run migrate:revert
+```
