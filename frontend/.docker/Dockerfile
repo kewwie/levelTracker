@@ -1,7 +1,8 @@
 FROM node:20
 USER node
 
-COPY --chown=node:node . /levels/frontend
+COPY --chown=node:node .env /levels/backend/.env
+COPY --chown=node:node ./frontend /levels/frontend
 
 WORKDIR /levels/frontend
 

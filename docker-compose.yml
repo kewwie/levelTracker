@@ -40,8 +40,8 @@ services:
   migrate:
     container_name: migrate
     build:
-      context: ./backend
-      dockerfile: .docker/Dockerfile
+      context: .
+      dockerfile: ./backend/.docker/Dockerfile
     depends_on:
       mysql:
         condition: service_healthy
@@ -51,8 +51,8 @@ services:
     container_name: frontend
     restart: unless-stopped
     build:
-      context: ./frontend
-      dockerfile: .docker/Dockerfile
+      context: .
+      dockerfile: ./frontend/.docker/Dockerfile
     depends_on:
       migrate:
         condition: service_completed_successfully
@@ -62,8 +62,8 @@ services:
     container_name: backend
     restart: unless-stopped
     build:
-      context: ./backend
-      dockerfile: .docker/Dockerfile
+      context: .
+      dockerfile: ./backend/.docker/Dockerfile
     depends_on:
       migrate:
         condition: service_completed_successfully

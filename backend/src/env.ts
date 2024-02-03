@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
 import path from "path";
-dotenv.config({ path: path.join(__dirname, "../../.env") });
+dotenv.config({ path: path.join(__dirname, "../.env") });
 
 let DB_HOST;
 if (process.env.NODE_ENV === "DEVELOPMENT") {
