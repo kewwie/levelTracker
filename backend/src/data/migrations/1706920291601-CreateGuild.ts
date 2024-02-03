@@ -9,7 +9,7 @@ export class CreateGuild1706920291601 implements MigrationInterface {
                 columns: [
                     {
                         name: "guildId",
-                        type: "int",
+                        type: "bigint",
                         unsigned: true,
                         isPrimary: true
                     },

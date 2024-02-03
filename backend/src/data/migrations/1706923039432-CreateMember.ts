@@ -16,12 +16,12 @@ export class CreateMember1706923039432 implements MigrationInterface {
                     },
                     {
                         name: "guildId",
-                        type: "int",
+                        type: "bigint",
                         unsigned: true
                     },
                     {
                         name: "userId",
-                        type: "int",
+                        type: "bigint",
                         unsigned: true
                     },
                     {
