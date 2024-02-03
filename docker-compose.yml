@@ -37,6 +37,16 @@ services:
       timeout: 20s
       retries: 10
 
+  migrate:
+    container_name: migrate
+    build:
+      context: ./backend
+      dockerfile: .docker/Dockerfile
+    depends_on:
+      mysql:
+        condition: service_healthy
+    command: ["npm", "run", "migrate:run"]
+
   frontend:
     container_name: frontend
     restart: unless-stopped
@@ -44,8 +54,8 @@ services:
       context: ./frontend
       dockerfile: .docker/Dockerfile
     depends_on:
-      mysql:
-        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
     command: ["npm", "run", "start"]
 
   backend:
@@ -55,6 +65,6 @@ services:
       context: ./backend
       dockerfile: .docker/Dockerfile
     depends_on:
-      mysql:
-        condition: service_healthy
-    command: ["npm", "run", "migrate:run", "&", "npm", "run", "start"]
+      migrate:
+        condition: service_completed_successfully
+    command: ["npm", "run", "start"]
