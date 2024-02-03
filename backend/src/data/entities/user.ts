@@ -1,9 +1,9 @@
 import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
-export class Member {
+export class MemberEntity {
     @PrimaryColumn()
-    userId: string;
+    userId: number;
 
     @Column()
     username: string;

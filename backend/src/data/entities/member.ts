@@ -1,15 +1,15 @@
 import { Column, Entity, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
-export class Member {
+export class MemberEntity {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column()
-    guildId: string;
+    guildId: number;
 
     @Column()
-    userId: string;
+    userId: number;
 
     @Column()
     username: string;

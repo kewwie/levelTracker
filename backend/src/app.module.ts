@@ -6,6 +6,8 @@ import { AppService } from './app.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { dataSourceOptions } from './data/datasource';
 
+// TypeORM Currently not in use
+
 @Module({
     imports: [
         TypeOrmModule.forRoot(dataSourceOptions),
