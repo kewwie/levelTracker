@@ -4,7 +4,7 @@ import { AppService } from './app.service';
 
 // Everything TypeORM
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { dataSourceOptions } from './data/datasource';
+import { dataSourceOptions } from './data/dataSource';
 
 // TypeORM Currently not in use
 
