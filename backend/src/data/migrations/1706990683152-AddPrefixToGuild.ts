@@ -1,4 +1,4 @@
-import { MigrationInterface, QueryRunner, TableColumn } from "typeorm";
+import { Column, MigrationInterface, QueryRunner, TableColumn } from "typeorm";
 
 export class AddPrefixToGuild1706990683152 implements MigrationInterface {
 
@@ -8,8 +8,10 @@ export class AddPrefixToGuild1706990683152 implements MigrationInterface {
                 name: "prefix",
                 type: "varchar",
                 length: "10",
-                default: "l!"
-            })
+                isNullable: true,
+                default: null
+            }),
+            
         );
     }
 
