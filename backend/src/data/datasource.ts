@@ -8,6 +8,7 @@ export const dataSourceOptions: DataSourceOptions = {
     username: env.DB_USER,
     password: env.DB_PASSWORD,
     database: env.DB_DATABASE,
+    synchronize: false,
     entities: [
         "dist/data/entities/*.js"
     ],

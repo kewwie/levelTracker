@@ -8,8 +8,7 @@ export class AddPrefixToGuild1706990683152 implements MigrationInterface {
                 name: "prefix",
                 type: "varchar",
                 length: "10",
-                isNullable: true,
-                default: null
+                isNullable: true
             }),
             
         );
