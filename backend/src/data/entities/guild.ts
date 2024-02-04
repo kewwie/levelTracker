@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
-export class GuildEntity {
+export class Guild {
     @PrimaryColumn()
     guildId: number;
 
