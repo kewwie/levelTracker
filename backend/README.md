@@ -5,7 +5,7 @@
 
 ### Create Migration
 ```
-npm run migrate:create -- src/data/migrations/<NameOfMigration>
+npm run migrate:create -- src!data/migrations/<NameOfMigration>
 ```
 
 ### Run Migrations
