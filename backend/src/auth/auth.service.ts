@@ -9,7 +9,7 @@ import { v4 as uuidv4, v5 as uuidv5 } from "uuid";
 import axios from 'axios';
 
 import { dataSource } from "../data/datasource";
-import { Logins } from '../data/entities/Login';
+import { Login } from '../data/entities/Login';
 import { createCipheriv, randomBytes, randomUUID } from 'crypto';
 
 @Injectable()
@@ -55,7 +55,7 @@ export class AuthService {
             return response.data.user;
         });
 
-        let loginsDb = await dataSource.getRepository(Logins);
+        let loginsDb = await dataSource.getRepository(Login);
 
         let tokenArray = new Array<string>();
 
