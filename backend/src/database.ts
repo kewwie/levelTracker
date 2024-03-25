@@ -44,15 +44,9 @@ export const Download = async (guildId: string, type: string) => {
     }
 
     let membersDb = await dataSource.getRepository(Member);
-    console.log(await membersDb.find())
-    console.log(await membersDb.find({where: {guildId: "217055651371679745"}}))
-
 
     for (let member of leaderboard) {
-        console.log(typeof member.id)
-       
-        //let existingMember = await membersDb.findOne({ where: { guildId: 217055651371679745, userId: 292948682884775940 }});
-        let existingMember = await membersDb.findOneBy({guildId: "217055651371679745", userId: "292948682884775940"});
+        let existingMember = await membersDb.findOne({ where: {guildId: guildId, userId: member.id} });
 
         if (existingMember) {
             let xpGain = member.xp.totalXp - existingMember.xp;
@@ -60,7 +54,7 @@ export const Download = async (guildId: string, type: string) => {
 
             if (msgGain < 0 || xpGain < 0 || member.rank !== existingMember.rank) {
 
-                membersDb.update([ guildId, existingMember.userId ], {
+                await membersDb.update([ guildId, existingMember.userId ], {
                     username: member.username,
                     discriminator: member.discriminator,
                     tag: member.tag,
@@ -68,7 +62,7 @@ export const Download = async (guildId: string, type: string) => {
                     rank: member.rank,
                     level: member.level,
                     xp: member.xp.totalXp,
-                    averageXp: (existingMember.averageXp + xpGain) / (msgGain || 0),
+                    averageXp: (existingMember.averageXp + xpGain) / (msgGain || 1),
                     hourlyXp: existingMember.hourlyXp + xpGain,
                     dailyXp: existingMember.dailyXp + xpGain,
                     weeklyXp: existingMember.weeklyXp + xpGain,
@@ -85,9 +79,9 @@ export const Download = async (guildId: string, type: string) => {
             //console.log(existingMember, member);
             //console.log(await membersDb.findOne({ where: { guildId: guildId, userId: member.id }}));
 
-            /*membersDb.insert({
+            membersDb.insert({
                 guildId: guildId,
-                userId: Number(member.id),
+                userId: member.id,
                 username: member.username,
                 discriminator: member.discriminator,
                 tag: member.tag,
@@ -96,7 +90,7 @@ export const Download = async (guildId: string, type: string) => {
                 level: member.level,
                 xp: member.xp.totalXp,
                 messages: member.messageCount
-            });*/
+            });
         }
     }
     /*

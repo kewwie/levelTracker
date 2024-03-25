@@ -10,7 +10,6 @@ export class CreateGuilds1706920291601 implements MigrationInterface {
                     name: 'id', // Guild ID
                     type: 'varchar',
                     length: '255',
-                    unsigned: true,
                     isPrimary: true,
                 },
                 {

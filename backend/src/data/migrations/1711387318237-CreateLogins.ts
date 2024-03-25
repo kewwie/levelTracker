@@ -11,7 +11,6 @@ export class CreateLogins1711387318237 implements MigrationInterface {
                         name: "id", // User ID
                         type: 'varchar',
                         length: '255',
-                        unsigned: true,
                         isPrimary: true
                     },
                     {

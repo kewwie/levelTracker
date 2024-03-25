@@ -10,7 +10,6 @@ export class CreateUsers1706921675343 implements MigrationInterface {
                     name: 'id', // User ID
                     type: 'varchar',
                     length: '255',
-                    unsigned: true,
                     isPrimary: true,
                 },
                 {
