@@ -7,7 +7,7 @@ export class CreateGuilds1706920291601 implements MigrationInterface {
                 name: 'guilds',
                 columns: [
                 {
-                    name: 'guildId',
+                    name: 'id', // Guild ID
                     type: 'bigint',
                     unsigned: true,
                     isPrimary: true,
@@ -27,12 +27,6 @@ export class CreateGuilds1706920291601 implements MigrationInterface {
                     name: 'type',
                     type: 'varchar',
                     length: '100',
-                },
-                {
-                    name: 'active',
-                    type: 'tinyint',
-                    unsigned: true,
-                    default: 1,
                 },
                 {
                     name: 'prefix',

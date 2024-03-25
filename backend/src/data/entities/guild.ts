@@ -1,9 +1,9 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'guilds' })
 export class Guild {
-    @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
-    guildId: number;
+    @PrimaryColumn({ type: 'bigint', unsigned: true })
+    id: number; // Guild ID
 
     @Column({ type: 'varchar', length: 255 })
     name: string;
@@ -13,10 +13,7 @@ export class Guild {
 
     @Column({ type: 'varchar', length: 100 })
     type: string;
-
-    @Column({ type: 'tinyint', unsigned: true, default: 1 })
-    active: number;
-
+    
     @Column({ type: 'varchar', length: 10, nullable: true })
     prefix: string | null;
 }
