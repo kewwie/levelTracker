@@ -91,6 +91,13 @@ export const Download = async (guildId: number, type: string) => {
             });
         }
     }
+
+    let members = await membersDb.find({ where: { guildId }});
+    for (let member of members) {
+        if (member.id !== leaderboard.find((user) => user.id === member.id)) {
+            membersDb.delete(member.id);
+        }
+    }
 };
 
 export const ResetLeaderboard = async (type: string) => {
