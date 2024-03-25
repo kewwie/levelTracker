@@ -37,9 +37,9 @@ export class CreateGuilds1706920291601 implements MigrationInterface {
                 ],
             }),
         );
-  }
+    }
 
-  public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable('guild');
-  }
+    public async down(queryRunner: QueryRunner): Promise<void> {
+        await queryRunner.dropTable('guild');
+    }
 }

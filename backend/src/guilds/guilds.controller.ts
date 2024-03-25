@@ -11,17 +11,17 @@ export class GuildsController {
     constructor(private guildsService: GuildsService) {}
 
     @Post() // POST /guilds/:guildId
-    postGuilds(@Body() guildData: GuildData) {
-        this.guildsService.postGuilds(guildData);
+    postGuilds(@Param('guildId') guildId: number, @Body() guildData: GuildData) {
+        return this.guildsService.postGuilds(guildId, guildData);
     }
 
     @Patch() // PATCH /guilds/:guildId
-    patchGuilds(@Body() guildData: GuildData) {
-        this.guildsService.patchGuilds(guildData);
+    patchGuilds(@Param('guildId') guildId: number, @Body() guildData: GuildData) {
+        return this.guildsService.patchGuilds(guildId, guildData);
     }
 
     @Delete() // DELETE /guilds/:guildId
     deleteGuilds(@Param('guildId') guildId: number) {
-        this.guildsService.deleteGuilds(guildId);
+        return this.guildsService.deleteGuilds(guildId);
     }
 }

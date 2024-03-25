@@ -25,8 +25,7 @@ export const Download = async (guildId: number, type: string) => {
 
             for (let pageCount = 0; pageCount < (maxPages - 1); pageCount++) {
                 let limit = 1000;
-                let response = await fetch(apiUrl + `${guildId}?limit=${limit}&page=${pageCount}`);
-                let { players } = await response.json();
+                let { players } = await fetch(apiUrl + `${guildId}?limit=${limit}&page=${pageCount}`);
                 let page = players.map((user, index) => {
                     const { id, level, username, discriminator, avatar, message_count: messageCount } = user;
                     const avatarUrl = `https://cdn.discordapp.com/avatars/${id}/${avatar}`;
@@ -35,7 +34,7 @@ export const Download = async (guildId: number, type: string) => {
                         id, level, username, discriminator, avatarUrl, messageCount,
                         tag: `${username}#${discriminator}`,
                         xp: { userXp, levelXp, totalXp },
-                        rank: (limit * page) + index + 1
+                        rank: (limit * pageCount) + index + 1
                     };
                 });
 
@@ -79,7 +78,7 @@ export const Download = async (guildId: number, type: string) => {
         } else {
             membersDb.insert({
                 guildId: guildId,
-                userId: member.id,
+                userId: Number(member.id),
                 username: member.username,
                 discriminator: member.discriminator,
                 tag: member.tag,
@@ -91,13 +90,13 @@ export const Download = async (guildId: number, type: string) => {
             });
         }
     }
-
+    /*
     let members = await membersDb.find({ where: { guildId }});
     for (let member of members) {
         if (member.id !== leaderboard.find((user) => user.id === member.id)) {
             membersDb.delete(member.id);
         }
-    }
+    }*/
 };
 
 export const ResetLeaderboard = async (type: string) => {

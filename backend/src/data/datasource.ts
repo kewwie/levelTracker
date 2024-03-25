@@ -8,13 +8,11 @@ export const dataSourceOptions: DataSourceOptions = {
     username: env.DB_USER,
     password: env.DB_PASSWORD,
     database: env.DB_DATABASE,
+    migrations: ['dist/**/migrations/*.js'],
+    entities: ['dist/**/entities/*.js'],
+    //logging: ["error", "query"],
     synchronize: false,
-    entities: [
-        __dirname + "./../dist/data/entities/*.js"
-    ],
-    migrations: [
-        __dirname + "./../distdata/migrations/*.js"
-    ],
+    debug: false,
 }
 
 export const dataSource = new DataSource(dataSourceOptions);

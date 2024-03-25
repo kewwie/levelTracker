@@ -1,5 +1,5 @@
 export interface GuildData {
-    id: number;
+    id: number; // Guild ID
     name: string;
     iconUrl: string | null;
     type: string;
