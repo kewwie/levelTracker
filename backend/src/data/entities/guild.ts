@@ -1,22 +1,22 @@
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'guilds' })
 export class Guild {
-    @PrimaryColumn()
+    @PrimaryGeneratedColumn({ type: 'bigint', unsigned: true })
     guildId: number;
 
-    @Column()
+    @Column({ type: 'varchar', length: 255 })
     name: string;
 
-    @Column({ type: String, nullable: true })
+    @Column({ type: 'varchar', length: 255, nullable: true })
     iconUrl: string | null;
 
-    @Column()
+    @Column({ type: 'varchar', length: 100 })
     type: string;
-    
-    @Column()
-    active: boolean;
 
-    @Column()
-    prefix: string;
+    @Column({ type: 'tinyint', unsigned: true, default: 1 })
+    active: number;
+
+    @Column({ type: 'varchar', length: 10, nullable: true })
+    prefix: string | null;
 }

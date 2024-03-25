@@ -1,64 +1,64 @@
-import { Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity()
+@Entity({ name: 'members' })
 export class Member {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ type: 'bigint', unsigned: true })
     guildId: number;
 
-    @Column()
+    @Column({ type: 'bigint', unsigned: true })
     userId: number;
 
-    @Column()
+    @Column({ type: 'varchar', length: 255 })
     username: string;
 
-    @Column({ type: String, nullable: true })
-    discriminator: string | null;
+    @Column({ type: 'varchar', length: 4, nullable: true })
+    discriminator: string;
 
-    @Column()
+    @Column({ type: 'varchar', length: 255 })
     tag: string;
 
-    @Column({ type: String, nullable: true })
-    avatarUrl: string | null;
+    @Column({ type: 'varchar', length: 255, nullable: true })
+    avatarUrl: string;
 
-    @Column()
+    @Column({ type: 'int' })
     rank: number;
 
-    @Column()
+    @Column({ type: 'int' })
     level: number;
 
-    @Column()
+    @Column({ type: 'int' })
     xp: number;
 
-    @Column()
+    @Column({ type: 'int', default: 0 })
     averageXp: number;
 
-    @Column()
+    @Column({ type: 'int', default: 0 })
     hourlyXp: number;
 
-    @Column()
+    @Column({ type: 'int', default: 0 })
     dailyXp: number;
-    
-    @Column()
+
+    @Column({ type: 'int', default: 0 })
     weeklyXp: number;
 
-    @Column()
+    @Column({ type: 'int', default: 0 })
     monthlyXp: number;
 
-    @Column()
-    messages: number
+    @Column({ type: 'int' })
+    messages: number;
 
-    @Column()
+    @Column({ type: 'int', default: 0 })
     hourlyMsg: number;
 
-    @Column()
+    @Column({ type: 'int', default: 0 })
     dailyMsg: number;
 
-    @Column()
+    @Column({ type: 'int', default: 0 })
     weeklyMsg: number;
 
-    @Column()
+    @Column({ type: 'int', default: 0 })
     monthlyMsg: number;
 }
