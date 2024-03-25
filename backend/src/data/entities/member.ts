@@ -5,11 +5,11 @@ export class Member {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ type: 'int', unsigned: true })
-    guildId: number;
+    @Column({ type: 'varchar', length: 255 })
+    guildId: string;
 
-    @Column({ type: 'int', unsigned: true })
-    userId: number;
+    @Column({ type: 'varchar', length: 255 })
+    userId: string;
 
     @Column({ type: 'varchar', length: 255 })
     username: string;

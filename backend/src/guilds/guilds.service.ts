@@ -10,7 +10,7 @@ import { Guild } from 'src/data/entities/Guild';
 @Injectable()
 export class GuildsService {
 
-    async postGuilds(guildId: number, guildData: GuildData) { // Create Guild
+    async postGuilds(guildId: string, guildData: GuildData) { // Create Guild
         console.log("Create");
         let guildDb = await dataSource.getRepository(Guild);
         let guild = await guildDb.findOne({ where: { id: guildId } });
@@ -26,7 +26,7 @@ export class GuildsService {
         }
     }
 
-    async patchGuilds(guildId: number, guildData: GuildData) { // Update Guild
+    async patchGuilds(guildId: string, guildData: GuildData) { // Update Guild
         let guildDb = await dataSource.getRepository(Guild);
         let guild = await guildDb.findOne({ where: { id: guildId } });
 
@@ -40,7 +40,7 @@ export class GuildsService {
         }
     }
 
-    async deleteGuilds(guildId: number) { // Delete Guild
+    async deleteGuilds(guildId: string) { // Delete Guild
         let guildDb = await dataSource.getRepository(Guild);
         let guild = await guildDb.findOne({ where: { id: guildId } });
 

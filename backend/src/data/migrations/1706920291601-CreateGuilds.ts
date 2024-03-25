@@ -8,7 +8,8 @@ export class CreateGuilds1706920291601 implements MigrationInterface {
                 columns: [
                 {
                     name: 'id', // Guild ID
-                    type: 'bigint',
+                    type: 'varchar',
+                    length: '255',
                     unsigned: true,
                     isPrimary: true,
                 },

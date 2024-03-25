@@ -5,7 +5,6 @@ https://docs.nestjs.com/providers#services
 import { Injectable } from '@nestjs/common';
 import { Request, Response } from 'express';
 import { env } from '../env';
-import { v4 as uuidv4, v5 as uuidv5 } from "uuid";
 import axios from 'axios';
 
 import { dataSource } from "../data/datasource";

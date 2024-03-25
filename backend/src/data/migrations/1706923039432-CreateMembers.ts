@@ -16,13 +16,13 @@ export class CreateMembers1706923039432 implements MigrationInterface {
                     },
                     {
                         name: "guildId",
-                        type: "bigint",
-                        unsigned: true
+                        type: "varchar",
+                        length: "255"
                     },
                     {
                         name: "userId",
-                        type: "bigint",
-                        unsigned: true
+                        type: "varchar",
+                        length: "255"
                     },
                     {
                         name: "username",

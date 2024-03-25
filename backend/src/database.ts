@@ -15,7 +15,7 @@ const fetch = async (url) => {
 	return response.data;
 };
 
-export const Download = async (guildId: number, type: string) => {
+export const Download = async (guildId: string, type: string) => {
     switch(type) {
         case "mee6": {
             let apiUrl = "https://mee6.xyz/api/plugins/levels/leaderboard/";
@@ -44,9 +44,15 @@ export const Download = async (guildId: number, type: string) => {
     }
 
     let membersDb = await dataSource.getRepository(Member);
+    console.log(await membersDb.find())
+    console.log(await membersDb.find({where: {guildId: "217055651371679745"}}))
+
 
     for (let member of leaderboard) {
-        let existingMember = await membersDb.findOne({ where: { guildId, userId: member.id }});
+        console.log(typeof member.id)
+       
+        //let existingMember = await membersDb.findOne({ where: { guildId: 217055651371679745, userId: 292948682884775940 }});
+        let existingMember = await membersDb.findOneBy({guildId: "217055651371679745", userId: "292948682884775940"});
 
         if (existingMember) {
             let xpGain = member.xp.totalXp - existingMember.xp;
@@ -76,7 +82,10 @@ export const Download = async (guildId: number, type: string) => {
             }
 
         } else {
-            membersDb.insert({
+            //console.log(existingMember, member);
+            //console.log(await membersDb.findOne({ where: { guildId: guildId, userId: member.id }}));
+
+            /*membersDb.insert({
                 guildId: guildId,
                 userId: Number(member.id),
                 username: member.username,
@@ -87,7 +96,7 @@ export const Download = async (guildId: number, type: string) => {
                 level: member.level,
                 xp: member.xp.totalXp,
                 messages: member.messageCount
-            });
+            });*/
         }
     }
     /*

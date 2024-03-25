@@ -2,8 +2,8 @@ import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'guilds' })
 export class Guild {
-    @PrimaryColumn({ type: 'bigint', unsigned: true })
-    id: number; // Guild ID
+    @PrimaryColumn({ type: 'varchar', length: 255 })
+    id: string; // Guild ID
 
     @Column({ type: 'varchar', length: 255 })
     name: string;

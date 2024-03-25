@@ -2,8 +2,8 @@ import { Entity, Column, PrimaryColumn } from 'typeorm';
 
 @Entity({ name: 'logins' })
 export class Login {
-    @PrimaryColumn({ type: 'bigint', unsigned: true })
-    id: number; // User ID
+    @PrimaryColumn({ type: 'varchar', length: 255, unsigned: true })
+    id: string; // User ID
 
     @Column({ type: 'varchar', length: 255 })
     token: string;
