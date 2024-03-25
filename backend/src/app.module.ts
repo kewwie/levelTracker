@@ -1,3 +1,4 @@
+import { GuildsModule } from './guilds/guilds.module';
 import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
@@ -11,6 +12,7 @@ import { dataSourceOptions } from './data/datasource';
 
 @Module({
     imports: [
+        GuildsModule, 
         AuthModule, 
         TypeOrmModule.forRoot(dataSourceOptions),
     ],
