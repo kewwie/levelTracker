@@ -68,11 +68,11 @@ export class AuthService {
 
         let token: string = tokenArray.join(".");
 
-        const existingLogin = await loginsDb.findOne({ where: { userId: user.id }});
+        const existingLogin = await loginsDb.findOne({ where: { id: user.id }});
 
         if (existingLogin) {
             // Update the existing login
-            await loginsDb.update(existingLogin.userId, {
+            await loginsDb.update(existingLogin.id, {
                 token,
                 tokenType: response.token_type,
                 accessToken: response.access_token,
@@ -83,7 +83,7 @@ export class AuthService {
         } else {
             // Insert a new login
             await loginsDb.insert({
-                userId: user.id,
+                id: user.id,
                 token,
                 tokenType: response.token_type,
                 accessToken: response.access_token,
