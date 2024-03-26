@@ -5,6 +5,7 @@ https://docs.nestjs.com/providers#services
 import { Injectable } from '@nestjs/common';
 import { GuildData } from '../types/GuildData';
 import { dataSource } from '../data/datasource';
+import { MoreThan } from 'typeorm';
 import { Guild } from '../data/entities/Guild';
 import { Member } from '../data/entities/Member';
 
@@ -59,11 +60,11 @@ export class GuildsService {
         let membersDb = await dataSource.getRepository(Member);
         switch(type) {
             case "xp": {
-                var members = await membersDb.find({ where: { guildId }, order: { hourlyXp: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, hourlyXp: MoreThan(0) }, order: { hourlyXp: "DESC"}, skip: start, take: amount });
             }
 
             case "msg": {
-                var members = await membersDb.find({ where: { guildId }, order: { hourlyMsg: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, hourlyMsg: MoreThan(0) }, order: { hourlyMsg: "DESC"}, skip: start, take: amount });
             }
         }
 
@@ -80,11 +81,11 @@ export class GuildsService {
         let membersDb = await dataSource.getRepository(Member);
         switch(type) {
             case "xp": {
-                var members = await membersDb.find({ where: { guildId }, order: { dailyXp: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, dailyXp: MoreThan(0) }, order: { dailyXp: "DESC"}, skip: start, take: amount });
             }
 
             case "msg": {
-                var members = await membersDb.find({ where: { guildId }, order: { dailyMsg: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, dailyMsg: MoreThan(0) }, order: { dailyMsg: "DESC"}, skip: start, take: amount });
             }
         }
 
@@ -101,11 +102,11 @@ export class GuildsService {
         let membersDb = await dataSource.getRepository(Member);
         switch(type) {
             case "xp": {
-                var members = await membersDb.find({ where: { guildId }, order: { weeklyXp: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, weeklyXp: MoreThan(0) }, order: { weeklyXp: "DESC"}, skip: start, take: amount });
             }
 
             case "msg": {
-                var members = await membersDb.find({ where: { guildId }, order: { weeklyMsg: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, weeklyMsg: MoreThan(0) }, order: { weeklyMsg: "DESC"}, skip: start, take: amount });
             }
         }
 
@@ -122,11 +123,11 @@ export class GuildsService {
         let membersDb = await dataSource.getRepository(Member);
         switch(type) {
             case "xp": {
-                var members = await membersDb.find({ where: { guildId }, order: { monthlyXp: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, monthlyXp: MoreThan(0) }, order: { monthlyXp: "DESC"}, skip: start, take: amount });
             }
 
             case "msg": {
-                var members = await membersDb.find({ where: { guildId }, order: { monthlyMsg: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, monthlyMsg: MoreThan(0) }, order: { monthlyMsg: "DESC"}, skip: start, take: amount });
             }
         }
 

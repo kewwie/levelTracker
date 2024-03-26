@@ -56,7 +56,7 @@ export const Download = async (guildId: string, type: string) => {
                 var averageXp = existingMember.averageXp;
 
                 if (xpGain < 100) {
-                    averageXp = (existingMember.averageXp + xpGain) / (msgGain || 1);
+                    averageXp = (existingMember.averageXp + xpGain) / 2;
                 }
 
                 membersDb.update({ guildId: guildId, userId: member.id }, {
