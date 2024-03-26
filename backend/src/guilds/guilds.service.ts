@@ -5,7 +5,7 @@ https://docs.nestjs.com/providers#services
 import { Injectable } from '@nestjs/common';
 import { GuildData } from '../types/GuildData';
 import { dataSource } from '../data/datasource';
-import { Guild } from 'src/data/entities/Guild';
+import { Guild } from '../data/entities/Guild';
 
 @Injectable()
 export class GuildsService {
