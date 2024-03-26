@@ -53,15 +53,17 @@ export class GuildsService {
         }
     }
 
-    async getHourlyLeaderboard(guildId: string, type: string) {
+    async getHourlyLeaderboard(guildId: string, type: string, amount: number, page: number) {
+        let start = amount * page;
+
         let membersDb = await dataSource.getRepository(Member);
         switch(type) {
             case "xp": {
-                var members = await membersDb.find({ where: { guildId }, order: { hourlyXp: "DESC"} });
+                var members = await membersDb.find({ where: { guildId }, order: { hourlyXp: "DESC"}, skip: start, take: amount });
             }
 
             case "msg": {
-                var members = await membersDb.find({ where: { guildId }, order: { hourlyMsg: "DESC"} });
+                var members = await membersDb.find({ where: { guildId }, order: { hourlyMsg: "DESC"}, skip: start, take: amount });
             }
         }
 
@@ -72,15 +74,17 @@ export class GuildsService {
         }
     }
 
-    async getDailyLeaderboard(guildId: string, type: string) {
+    async getDailyLeaderboard(guildId: string, type: string, amount: number, page: number) {
+        let start = amount * page;
+
         let membersDb = await dataSource.getRepository(Member);
         switch(type) {
             case "xp": {
-                var members = await membersDb.find({ where: { guildId }, order: { dailyXp: "DESC"} });
+                var members = await membersDb.find({ where: { guildId }, order: { dailyXp: "DESC"}, skip: start, take: amount });
             }
 
             case "msg": {
-                var members = await membersDb.find({ where: { guildId }, order: { dailyMsg: "DESC"} });
+                var members = await membersDb.find({ where: { guildId }, order: { dailyMsg: "DESC"}, skip: start, take: amount });
             }
         }
 
@@ -91,15 +95,17 @@ export class GuildsService {
         }
     }
 
-    async getWeeklyLeaderboard(guildId: string, type: string) {
+    async getWeeklyLeaderboard(guildId: string, type: string, amount: number, page: number) {
+        let start = amount * page;
+
         let membersDb = await dataSource.getRepository(Member);
         switch(type) {
             case "xp": {
-                var members = await membersDb.find({ where: { guildId }, order: { weeklyXp: "DESC"} });
+                var members = await membersDb.find({ where: { guildId }, order: { weeklyXp: "DESC"}, skip: start, take: amount });
             }
 
             case "msg": {
-                var members = await membersDb.find({ where: { guildId }, order: { weeklyMsg: "DESC"} });
+                var members = await membersDb.find({ where: { guildId }, order: { weeklyMsg: "DESC"}, skip: start, take: amount });
             }
         }
 
@@ -110,15 +116,17 @@ export class GuildsService {
         }
     }
 
-    async getMonthlyLeaderboard(guildId: string, type: string) {
+    async getMonthlyLeaderboard(guildId: string, type: string, amount: number, page: number) {
+        let start = amount * page;
+
         let membersDb = await dataSource.getRepository(Member);
         switch(type) {
             case "xp": {
-                var members = await membersDb.find({ where: { guildId }, order: { monthlyXp: "DESC"} });
+                var members = await membersDb.find({ where: { guildId }, order: { monthlyXp: "DESC"}, skip: start, take: amount });
             }
 
             case "msg": {
-                var members = await membersDb.find({ where: { guildId }, order: { monthlyMsg: "DESC"} });
+                var members = await membersDb.find({ where: { guildId }, order: { monthlyMsg: "DESC"}, skip: start, take: amount });
             }
         }
 
