@@ -53,6 +53,11 @@ export const Download = async (guildId: string, type: string) => {
             let msgGain = member.messageCount - existingMember.messages;
 
             if (msgGain > 0 || xpGain > 0 || member.rank !== existingMember.rank) {
+                var averageXp = existingMember.averageXp;
+
+                if (xpGain < 100) {
+                    averageXp = (existingMember.averageXp + xpGain) / (msgGain || 1);
+                }
 
                 membersDb.update({ guildId: guildId, userId: member.id }, {
                     username: member.username,
@@ -62,7 +67,7 @@ export const Download = async (guildId: string, type: string) => {
                     rank: member.rank,
                     level: member.level,
                     xp: member.xp.totalXp,
-                    averageXp: (existingMember.averageXp + xpGain) / (msgGain || 1), // Add so it skips adding to the averagexp if its more then 75 xp
+                    averageXp,
                     hourlyXp: existingMember.hourlyXp + xpGain,
                     dailyXp: existingMember.dailyXp + xpGain,
                     weeklyXp: existingMember.weeklyXp + xpGain,
