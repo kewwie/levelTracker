@@ -2,9 +2,10 @@
 https://docs.nestjs.com/modules
 */
 
+import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
 import { GuildsController } from './guilds.controller';
 import { GuildsService } from './guilds.service';
-import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/common';
+import { UsersModule } from './users/users.module';
 
 // GET = Read
 // POST = Create
@@ -13,7 +14,7 @@ import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/c
 // DELETE = Delete
 
 @Module({
-  imports: [],
+  imports: [UsersModule],
   controllers: [GuildsController],
   providers: [GuildsService],
 })

@@ -62,7 +62,7 @@ export const Download = async (guildId: string, type: string) => {
                     rank: member.rank,
                     level: member.level,
                     xp: member.xp.totalXp,
-                    averageXp: (existingMember.averageXp + xpGain) / (msgGain || 1),
+                    averageXp: (existingMember.averageXp + xpGain) / (msgGain || 1), // Add so it skips adding to the averagexp if its more then 75 xp
                     hourlyXp: existingMember.hourlyXp + xpGain,
                     dailyXp: existingMember.dailyXp + xpGain,
                     weeklyXp: existingMember.weeklyXp + xpGain,
