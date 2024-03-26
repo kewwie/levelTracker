@@ -52,7 +52,7 @@ export const Download = async (guildId: string, type: string) => {
             let xpGain = member.xp.totalXp - existingMember.xp;
             let msgGain = member.messageCount - existingMember.messages;
 
-            if (msgGain < 0 || xpGain < 0 || member.rank !== existingMember.rank) {
+            if (msgGain > 0 || xpGain > 0 || member.rank !== existingMember.rank) {
 
                 await membersDb.update([ guildId, existingMember.userId ], {
                     username: member.username,
@@ -76,8 +76,6 @@ export const Download = async (guildId: string, type: string) => {
             }
 
         } else {
-            //console.log(existingMember, member);
-            //console.log(await membersDb.findOne({ where: { guildId: guildId, userId: member.id }}));
 
             membersDb.insert({
                 guildId: guildId,
@@ -93,13 +91,13 @@ export const Download = async (guildId: string, type: string) => {
             });
         }
     }
-    /*
+    
     let members = await membersDb.find({ where: { guildId }});
     for (let member of members) {
-        if (member.id !== leaderboard.find((user) => user.id === member.id)) {
+        if (member.id !== leaderboard.find((user) => user.id === member.id).id) {
             membersDb.delete(member.id);
         }
-    }*/
+    }
 };
 
 export const ResetLeaderboard = async (type: string) => {
