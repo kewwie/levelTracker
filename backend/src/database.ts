@@ -54,7 +54,7 @@ export const Download = async (guildId: string, type: string) => {
 
             if (msgGain > 0 || xpGain > 0 || member.rank !== existingMember.rank) {
 
-                await membersDb.update([ guildId, existingMember.userId ], {
+                membersDb.update({ guildId: guildId, userId: member.id }, {
                     username: member.username,
                     discriminator: member.discriminator,
                     tag: member.tag,
