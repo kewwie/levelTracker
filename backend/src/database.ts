@@ -93,8 +93,9 @@ export const Download = async (guildId: string, type: string) => {
     }
     
     let members = await membersDb.find({ where: { guildId }});
+    
     for (let member of members) {
-        if (member.userId !== (leaderboard.find((user) => user.id === "292948682884775937")).id) {
+        if ((leaderboard.find((user) => user.id === member.userId)) === undefined) {
             membersDb.delete(member.id);
         }
     }
