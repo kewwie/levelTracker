@@ -6,6 +6,7 @@ import { Injectable } from '@nestjs/common';
 import { GuildData } from '../types/GuildData';
 import { dataSource } from '../data/datasource';
 import { Guild } from '../data/entities/Guild';
+import { Member } from '../data/entities/Member';
 
 @Injectable()
 export class GuildsService {
@@ -52,4 +53,79 @@ export class GuildsService {
         }
     }
 
+    async getHourlyLeaderboard(guildId: string, type: string) {
+        let membersDb = await dataSource.getRepository(Member);
+        switch(type) {
+            case "xp": {
+                var members = await membersDb.find({ where: { guildId }, order: { hourlyXp: "DESC"} });
+            }
+
+            case "msg": {
+                var members = await membersDb.find({ where: { guildId }, order: { hourlyMsg: "DESC"} });
+            }
+        }
+
+        if (members) {
+            return { members };
+        } else {
+            return { "message": "Members not found" };
+        }
+    }
+
+    async getDailyLeaderboard(guildId: string, type: string) {
+        let membersDb = await dataSource.getRepository(Member);
+        switch(type) {
+            case "xp": {
+                var members = await membersDb.find({ where: { guildId }, order: { dailyXp: "DESC"} });
+            }
+
+            case "msg": {
+                var members = await membersDb.find({ where: { guildId }, order: { dailyMsg: "DESC"} });
+            }
+        }
+
+        if (members) {
+            return { members };
+        } else {
+            return { "message": "Members not found" };
+        }
+    }
+
+    async getWeeklyLeaderboard(guildId: string, type: string) {
+        let membersDb = await dataSource.getRepository(Member);
+        switch(type) {
+            case "xp": {
+                var members = await membersDb.find({ where: { guildId }, order: { weeklyXp: "DESC"} });
+            }
+
+            case "msg": {
+                var members = await membersDb.find({ where: { guildId }, order: { weeklyMsg: "DESC"} });
+            }
+        }
+
+        if (members) {
+            return { members };
+        } else {
+            return { "message": "Members not found" };
+        }
+    }
+
+    async getMonthlyLeaderboard(guildId: string, type: string) {
+        let membersDb = await dataSource.getRepository(Member);
+        switch(type) {
+            case "xp": {
+                var members = await membersDb.find({ where: { guildId }, order: { monthlyXp: "DESC"} });
+            }
+
+            case "msg": {
+                var members = await membersDb.find({ where: { guildId }, order: { monthlyMsg: "DESC"} });
+            }
+        }
+
+        if (members) {
+            return { members };
+        } else {
+            return { "message": "Members not found" };
+        }
+    }
 }

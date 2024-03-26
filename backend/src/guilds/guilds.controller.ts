@@ -2,7 +2,7 @@
 https://docs.nestjs.com/controllers#controllers
 */
 
-import { Body, Controller, Delete, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { GuildsService } from './guilds.service';
 import { GuildData } from '../types/GuildData';
 
@@ -23,5 +23,23 @@ export class GuildsController {
     @Delete() // DELETE /guilds/:guildId
     deleteGuilds(@Param('guildId') guildId: string) {
         return this.guildsService.deleteGuilds(guildId);
+    }
+    
+    @Get("/leaderboard/:time/:type") // GET /guilds/:guildId/leaderboard/:time/:type
+    getLeaderboard(@Param('guildId') guildId: string, @Param('time') time: string, @Param('type') type: string) {
+        switch(time) {
+            case "hourly": {
+                return this.guildsService.getHourlyLeaderboard(guildId, type);
+            }
+            case "daily": {
+                return this.guildsService.getDailyLeaderboard(guildId, type);
+            }
+            case "weekly": {
+                return this.guildsService.getWeeklyLeaderboard(guildId, type);
+            }
+            case "monthly": {
+                return this.guildsService.getMonthlyLeaderboard(guildId, type);
+            }
+        }
     }
 }
