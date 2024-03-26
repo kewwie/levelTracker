@@ -47,23 +47,34 @@ services:
         condition: service_healthy
     command: ["npm", "run", "migrate:run"]
 
-  frontend:
-    container_name: frontend
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: ./frontend/.docker/Dockerfile
-    depends_on:
-      migrate:
-        condition: service_completed_successfully
-    command: ["npm", "run", "start"]
-
   backend:
     container_name: backend
     restart: unless-stopped
     build:
       context: .
       dockerfile: ./backend/.docker/Dockerfile
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    command: ["npm", "run", "start"]
+
+  bot:
+    container_name: bot
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./bot/.docker/Dockerfile
+    depends_on:
+      migrate:
+        condition: service_completed_successfully
+    command: ["npm", "run", "start"]
+
+  frontend:
+    container_name: frontend
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./frontend/.docker/Dockerfile
     depends_on:
       migrate:
         condition: service_completed_successfully
