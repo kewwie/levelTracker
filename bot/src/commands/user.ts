@@ -1,6 +1,5 @@
 import { Command } from "../types/Command";
 import { env } from "../env";
-import axios from "axios";
 import { MemberResponse } from "../types/MemberResponse";
 import { EmbedBuilder } from "discord.js";
 import { StyleNumber } from "../utils/styleNumber";

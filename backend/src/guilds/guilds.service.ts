@@ -54,7 +54,7 @@ export class GuildsService {
         }
     }
 
-    async getHourlyLeaderboard(guildId: string, type: string, amount: number, page: number) {
+    async getHourlyLeaderboard(guildId: string, type: string, amount: number = 100, page: number = 0) {
         let start = amount * page;
 
         let membersDb = await dataSource.getRepository(Member);
@@ -75,7 +75,7 @@ export class GuildsService {
         }
     }
 
-    async getDailyLeaderboard(guildId: string, type: string, amount: number, page: number) {
+    async getDailyLeaderboard(guildId: string, type: string, amount: number = 100, page: number = 0) {
         let start = amount * page;
 
         let membersDb = await dataSource.getRepository(Member);
@@ -96,7 +96,7 @@ export class GuildsService {
         }
     }
 
-    async getWeeklyLeaderboard(guildId: string, type: string, amount: number, page: number) {
+    async getWeeklyLeaderboard(guildId: string, type: string, amount: number = 100, page: number = 0) {
         let start = amount * page;
 
         let membersDb = await dataSource.getRepository(Member);
@@ -117,7 +117,7 @@ export class GuildsService {
         }
     }
 
-    async getMonthlyLeaderboard(guildId: string, type: string, amount: number, page: number) {
+    async getMonthlyLeaderboard(guildId: string, type: string, amount: number = 100, page: number = 0) {
         let start = amount * page;
 
         let membersDb = await dataSource.getRepository(Member);
