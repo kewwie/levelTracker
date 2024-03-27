@@ -49,10 +49,10 @@ export const command: Command = {
                         name: "Monthly",
                         value: "monthly"
                     },
-                    {
+                    /*{
                         name: "All-Time",
                         value: "all"
-                    }
+                    }*/
                 ]
             }
         ]
