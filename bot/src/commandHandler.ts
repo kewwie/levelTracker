@@ -3,14 +3,15 @@ import { env } from "./env";
 import { readdirSync } from "fs";
 import { join } from "path";
 import { Command } from "./types/Command";
+import { REST, Routes } from "discord.js";
 
 export class CommandHandler {
     private client: KiwiClient;
-    private discordUrl: string;
+    //private discordUrl: string;
 
     constructor(client: KiwiClient) {
         this.client = client;
-        this.discordUrl = "https://discord.com/api/v10/applications/" + env.CLIENT_ID + "/commands"
+        //this.discordUrl = "https://discord.com/api/v10/applications/" + env.CLIENT_ID + "/commands"
     }
 
     load() {
@@ -26,21 +27,15 @@ export class CommandHandler {
 
         for (let command of commands) {
             cmds.push(command.config);
-
-            console.log(`Registered command ${command.config.name}`);
         }
 
-        let r = await fetch(this.discordUrl, {
-            method: "POST",
-            headers: {
-                Authorization: `Bot ${env.CLIENT_TOKEN}`,
-                'Content-Type': 'application/json; charset=UTF-8',
-            },
-            body: JSON.stringify(cmds),
-        });
+        const rest = new REST({ version: '10' }).setToken(env.CLIENT_TOKEN);
 
-        console.log(cmds)
+        let data: any = await rest.put(
+            Routes.applicationCommands(env.CLIENT_ID),
+            { body: cmds }
+        )
 
-        console.log((await r.json()).errors);
+        console.log(`Successfully reloaded ${data.length} application (/) commands.`);
     }
-  };
+};

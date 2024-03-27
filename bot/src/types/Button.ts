@@ -1,4 +1,5 @@
 import { ButtonInteraction } from "discord.js";
+import { KiwiClient } from "../client";
 
 export interface Button {
     data: {
@@ -13,5 +14,5 @@ export interface Button {
         };
         url?: string;
     };
-    execute: (interaction: ButtonInteraction) => void;
+    execute: (client: KiwiClient, interaction: ButtonInteraction) => void;
 }

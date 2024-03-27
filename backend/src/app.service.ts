@@ -2,11 +2,25 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-    getHello(): string {
-        return 'Hello World!';
+    get() {
+        return { "hello": "world" };
     }
 
-    getKew(): string {
-        return "This service was created by k3wwie";
+    getLevel(level: string) {
+        var totalXp = 0;
+
+        function forLevel(level) {
+            var levelXp = 100;
+            for (let lvl = 1; lvl < (level); lvl++) { 
+                levelXp = levelXp + (45 + (10 * lvl))
+            }
+            return levelXp;
+        }
+        
+        for (let lvl = 1; lvl < (Number(level) + 1); lvl++) { 
+            totalXp = totalXp + (forLevel(lvl));
+        }
+
+        return { xp: totalXp, level };
     }
 }

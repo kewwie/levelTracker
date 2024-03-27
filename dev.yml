@@ -1,20 +1,17 @@
 version: "3"
-name: "levels"
+name: "levels-dev"
 
 services:
   nginx:
     container_name: nginx
     restart: unless-stopped
     build:
-      context: ./nginx
+      context: ./nginx/dev
       dockerfile: Dockerfile
-      args:
-        - DOMAIN=${DOMAIN:?}
-        - PORT=${PORT:?}
     ports:
-      - "${PORT:?}:${PORT:?}"
+      - "80:80"
     volumes:
-      - ./nginx:/levels/nginx
+      - ./nginx/dev:/levels/nginx
     depends_on:
       - frontend
       - backend
@@ -53,17 +50,6 @@ services:
     build:
       context: .
       dockerfile: ./backend/.docker/Dockerfile
-    depends_on:
-      migrate:
-        condition: service_completed_successfully
-    command: ["npm", "run", "start"]
-
-  bot:
-    container_name: bot
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: ./bot/.docker/Dockerfile
     depends_on:
       migrate:
         condition: service_completed_successfully

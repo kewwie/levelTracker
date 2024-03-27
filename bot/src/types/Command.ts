@@ -1,4 +1,4 @@
-import { CommandInteraction } from "discord.js";
+import { AutocompleteInteraction, CommandInteraction } from "discord.js";
 import { KiwiClient } from "../client";
 
 export interface Command {
@@ -22,4 +22,5 @@ export interface Command {
         integration_types: (0 | 1)[];
     };
     execute: (client: KiwiClient, integration: CommandInteraction ) => void;
+    autocomplete?: (interaction: AutocompleteInteraction) => void;
 }

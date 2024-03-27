@@ -6,7 +6,7 @@ export const button: Button = {
         label: "Random",
         style: "PRIMARY",
     },
-    execute: (interaction) => {
+    execute: (client, interaction) => {
         interaction.reply("Random button pressed!");
     }
 }
