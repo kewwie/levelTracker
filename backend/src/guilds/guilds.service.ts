@@ -68,7 +68,7 @@ export class GuildsService {
             }
         }
 
-        if (members) {
+        if (members.length > 0) {
             return { members };
         } else {
             return { "message": "Members not found" };
@@ -89,7 +89,7 @@ export class GuildsService {
             }
         }
 
-        if (members) {
+        if (members.length > 0) {
             return { members };
         } else {
             return { "message": "Members not found" };
@@ -110,7 +110,7 @@ export class GuildsService {
             }
         }
 
-        if (members) {
+        if (members.length > 0) {
             return { members };
         } else {
             return { "message": "Members not found" };
@@ -131,7 +131,7 @@ export class GuildsService {
             }
         }
 
-        if (members) {
+        if (members.length > 0) {
             return { members };
         } else {
             return { "message": "Members not found" };
