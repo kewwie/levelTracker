@@ -60,6 +60,7 @@ export const command: Command = {
     async execute(client, interaction) {
         var type = interaction.options.get("type")?.value;
         var time = interaction.options.get("leaderboard")?.value;
+        console.log(1)
         var data = await fetch(
             env.URL +
             "/api/guilds/" +
@@ -72,7 +73,7 @@ export const command: Command = {
         ).then(res => res.json());
 
         if (data.message) {
-            return interaction.reply(data.message);
+            return interaction.reply({ content: data.message, ephemeral: true });
         }
 
         var fields = [], lbRank = 0;
@@ -104,7 +105,7 @@ export const command: Command = {
             lbRank++;
             fields.push({
                 name: `${lbRank}. ${tag}`,
-                value: `${StyleNumber(value)} ${String(type).toUpperCase()}`,
+                value: `${StyleNumber(value)} ${String(type).charAt(0).toUpperCase() + String(type).slice(1)}${type === "message" ? "s" : ""}`,
                 inline: false
             });
         }
