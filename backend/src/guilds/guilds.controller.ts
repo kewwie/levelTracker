@@ -25,7 +25,7 @@ export class GuildsController {
         return this.guildsService.deleteGuilds(guildId);
     }
     
-    @Get("/leaderboard/:time/:type") // GET /guilds/:guildId/leaderboard/:time/:type
+    @Get("/leaderboard/:time/:type") // GET /guilds/:guildId/leaderboard/:time/:type?page=0&amount=100
     getLeaderboard(
         @Param('guildId') guildId: string,
         @Param('time') time: string,
