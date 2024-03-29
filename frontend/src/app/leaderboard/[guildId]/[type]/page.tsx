@@ -40,9 +40,11 @@ export default function Leaderboard({ params: { guildId, type } }: { params: { g
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    var lb = searchParams.get("lb") || "hourly";
+    
     return (
         <div>
-        <PlayersList players={players} type={type} />
+        <PlayersList players={players} type={lb} />
             {loading && <p>Loading...</p>}
         </div>
     );
