@@ -15,23 +15,23 @@ export default function Leaderboard({ params: { guildId, type } }: { params: { g
     useEffect(() => {
         const loadPosts = async () => {
             setLoading(true);
-            //const response = await fetch(window.origin + `/api/guilds/${guildId}/leaderboard/${searchParams.get("lb")}/${type}?page=${page}&amount=100`);
-            const response = await fetch(window.origin + `/api/guilds/217055651371679745/leaderboard/daily/xp?page=0&amount=100`);
+            const response = await fetch(window.origin + `/api/guilds/${guildId}/leaderboard/${searchParams.get("lb")}/${type}?page=${page}&amount=100`);
             const data = await response.json();
-            setPlayers(oldData => [...oldData, ...data.members]);
+            if (data.members) {
+                setPlayers(oldData => [...oldData, ...data.members]);
+            }
             setLoading(false);
-            console.log(data.members);
         };
 
         loadPosts();
-    }, [page]);
+    }, [guildId, type, searchParams, page]);
 
     const handleScroll = () => {
         if (
-        window.innerHeight + document.documentElement.scrollTop ===
-        document.documentElement.offsetHeight
+            window.innerHeight + document.documentElement.scrollTop ===
+                document.documentElement.offsetHeight
         ) {
-        setPage(prevPage => prevPage + 1);
+            setPage(prevPage => prevPage + 1);
         }
     };
 
@@ -42,8 +42,7 @@ export default function Leaderboard({ params: { guildId, type } }: { params: { g
 
     return (
         <div>
-        <h1>Players</h1>
-        <PlayersList players={players} />
+        <PlayersList players={players} type={type} />
             {loading && <p>Loading...</p>}
         </div>
     );

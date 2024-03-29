@@ -1,11 +1,10 @@
-const PlayersList = ({ players }: { players: any[]}) => {
+import Player from "./Player";
+
+const PlayersList = ({ players, type }: { players: any[], type: string }) => {
   return (
     <div>
       {players.map(player => (
-        <div key={player.userId}>
-          <h2>{player.rank}</h2>
-          <p>{player.xp}</p>
-        </div>
+        <Player key={player.id} player={player} type={type} />
       ))}
     </div>
   );
