@@ -29,6 +29,10 @@ export const command: Command = {
             return interaction.reply(data.message);
         }
 
+        var { xp } = (await fetch(
+            env.INTERNAL_URL + `/api/level?` + new URLSearchParams({ level: String(data.level + 1) })
+        ).then(res => res.json())); 
+
         /*let activity = new Array();
         activity.push(`Hourly: ${StyleNumber(data.hourlyXp)} / ${StyleNumber(data.hourlyMsg)}`);
         activity.push(`Daily: ${StyleNumber(data.dailyXp)} / ${StyleNumber(data.dailyMsg)}`);
@@ -49,7 +53,7 @@ export const command: Command = {
                 //{ name: "To Level Up", value: `${((data.xp - data.xp))} Xp \n${(((data.xp - data.xp) / (data.averageXp || 20)))} Msgs`, inline: true },
             )
             .setTimestamp()
-            .setFooter({ text: "You need 1000 XP to level up" })
+            .setFooter({ text: `You need ${StyleNumber(xp)} XP to level up` })
     
         await interaction.reply({ embeds: [embed], ephemeral: false });
     }
