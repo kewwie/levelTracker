@@ -5,10 +5,10 @@ dotenv.config({ path: path.join(__dirname, "../.env") });
 
 var INTERNAL_URL
 
-if (process.env.PORT !== "433") {
-    INTERNAL_URL = "http://nginx";
+if (process.env.PORT === "433") {
+    INTERNAL_URL = "https://nginx:443";
 } else {
-    INTERNAL_URL = "https://nginx";
+    INTERNAL_URL = "http://nginx";
 }
 
 export const env = {
