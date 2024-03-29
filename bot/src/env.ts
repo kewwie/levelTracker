@@ -2,11 +2,20 @@ import dotenv from "dotenv";
 import path from "path";
 dotenv.config({ path: path.join(__dirname, "../.env") });
 
+
+var INTERNAL_URL
+
+if (process.env.PORT !== "433") {
+    INTERNAL_URL = "http://nginx";
+} else {
+    INTERNAL_URL = "https://nginx";
+}
+
 export const env = {
     CLIENT_ID: process.env.CLIENT_ID as string,
     CLIENT_SECRET: process.env.CLIENT_SECRET as string,
     CLIENT_TOKEN: process.env.CLIENT_TOKEN as string,
 
     URL: process.env.URL as string,
-    INTERNAL_URL: "http://nginx" as string,
+    INTERNAL_URL: INTERNAL_URL as string,
 }
