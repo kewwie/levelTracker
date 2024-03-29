@@ -15,10 +15,12 @@ export default function Leaderboard({ params: { guildId, type } }: { params: { g
     useEffect(() => {
         const loadPosts = async () => {
             setLoading(true);
-            const response = await fetch(window.origin + `/api/guilds/${guildId}/leaderboard/${searchParams.get("lb")}/${type}?page=${page}&amount=100`);
+            //const response = await fetch(window.origin + `/api/guilds/${guildId}/leaderboard/${searchParams.get("lb")}/${type}?page=${page}&amount=100`);
+            const response = await fetch(window.origin + `/api/guilds/217055651371679745/leaderboard/daily/xp?page=0&amount=100`);
             const data = await response.json();
-            setPlayers(prevPlayers => [...prevPlayers, ...data]);
+            setPlayers(oldData => [...oldData, ...data.members]);
             setLoading(false);
+            console.log(data.members);
         };
 
         loadPosts();
