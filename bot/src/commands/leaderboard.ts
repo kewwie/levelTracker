@@ -60,9 +60,9 @@ export const command: Command = {
     async execute(client, interaction) {
         var type = interaction.options.get("type")?.value;
         var time = interaction.options.get("leaderboard")?.value;
-        console.log(1)
+
         var data = await fetch(
-            env.URL +
+            env.INTERNAL_URL +
             "/api/guilds/" +
             interaction.guildId +
             "/leaderboard" +

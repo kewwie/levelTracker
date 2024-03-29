@@ -22,7 +22,7 @@ export const command: Command = {
     },
     async execute(client, interaction) {
         let data: MemberResponse  = await fetch(
-            env.URL + "/api/guilds/" + interaction.guildId + "/users/" + (interaction.options.get("member")?.value || interaction.user.id), 
+            env.INTERNAL_URL + "/api/guilds/" + interaction.guildId + "/users/" + (interaction.options.get("member")?.value || interaction.user.id), 
         ).then(res => res.json());
 
         if (data.message) {
@@ -50,7 +50,6 @@ export const command: Command = {
             )
             .setTimestamp()
             .setFooter({ text: "You need 1000 XP to level up" })
-            //.setImage("https://kewwie.com/assets/full_embed.png")
     
         await interaction.reply({ embeds: [embed], ephemeral: false });
     }

@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation'
 
 import PlayersList from '@/components/PlayersList';
+import { env } from '@/env';
 
 export default function Leaderboard({ params: { guildId, type } }: { params: { guildId: string, type: string } }) {
     const searchParams = useSearchParams();
@@ -15,7 +16,7 @@ export default function Leaderboard({ params: { guildId, type } }: { params: { g
     useEffect(() => {
         const loadPosts = async () => {
             setLoading(true);
-            const response = await fetch(window.origin + `/api/guilds/${guildId}/leaderboard/${searchParams.get("lb")}/${type}?page=${page}&amount=100`);
+            const response = await fetch(env.URL + `/api/guilds/${guildId}/leaderboard/${searchParams.get("lb")}/${type}?page=${page}&amount=100`);
             const data = await response.json();
             setPlayers(prevPlayers => [...prevPlayers, ...data]);
             setLoading(false);
