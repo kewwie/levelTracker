@@ -54,8 +54,6 @@ export const command: Command = {
                 env.INTERNAL_API + `/level?` + new URLSearchParams({ level: String(wantedLevel) })
             ).then(res => res.json())); 
 
-            console.log(xp, data.xp, data.averageXp || 20);
-
             var embed = new EmbedBuilder()
                 .setColor("#0099ff")
                 .setAuthor({ name: data.tag, iconURL: data.avatarUrl })

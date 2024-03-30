@@ -6,26 +6,31 @@ import { Body, Controller, Delete, Get, Param, Query, Patch, Post } from '@nestj
 import { GuildsService } from './guilds.service';
 import { GuildData } from '../types/GuildData';
 
-@Controller({ path: 'guilds/:guildId', version: '1' })
+@Controller({ path: 'guilds', version: '1' })
 export class GuildsController {
     constructor(private guildsService: GuildsService) {}
 
-    @Post() // POST /guilds/:guildId
+    @Get() // GET /guilds
+    getAllGuilds() {
+        return this.guildsService.getAllGuilds();
+    }
+
+    @Post("/:guildId") // POST /guilds/:guildId
     postGuilds(@Param('guildId') guildId: string, @Body() guildData: GuildData) {
         return this.guildsService.postGuilds(guildId, guildData);
     }
 
-    @Patch() // PATCH /guilds/:guildId
+    @Patch("/:guildId") // PATCH /guilds/:guildId
     patchGuilds(@Param('guildId') guildId: string, @Body() guildData: GuildData) {
         return this.guildsService.patchGuilds(guildId, guildData);
     }
 
-    @Delete() // DELETE /guilds/:guildId
+    @Delete("/:guildId") // DELETE /guilds/:guildId
     deleteGuilds(@Param('guildId') guildId: string) {
         return this.guildsService.deleteGuilds(guildId);
     }
     
-    @Get("/leaderboard/:time/:type") // GET /guilds/:guildId/leaderboard/:time/:type?page=0&amount=100
+    @Get("/:guildId/leaderboard/:time/:type") // GET /guilds/:guildId/leaderboard/:time/:type?page=0&amount=100
     getLeaderboard(
         @Param('guildId') guildId: string,
         @Param('time') time: string,

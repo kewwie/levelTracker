@@ -11,6 +11,16 @@ import { Member } from '../data/entities/Member';
 
 @Injectable()
 export class GuildsService {
+    async getAllGuilds() { // Get All Guilds
+        let guildDb = await dataSource.getRepository(Guild);
+        let guilds = await guildDb.find();
+
+        if (guilds.length > 0) {
+            return guilds;
+        } else {
+            return { "message": "Guilds not found" };
+        }
+    }
 
     async postGuilds(guildId: string, guildData: GuildData) { // Create Guild
         console.log("Create");
