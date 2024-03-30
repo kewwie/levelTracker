@@ -14,10 +14,10 @@ export interface MemberResponse {
     dailyXp: number;
     weeklyXp: number;
     monthlyXp: number;
-    messages: number;
-    hourlyMsg: number;
-    dailyMsg: number;
-    weeklyMsg: number;
-    monthlyMsg: number;
+    minutes: number;
+    hourlyMinutes: number;
+    dailyMinutes: number;
+    weeklyMinutes: number;
+    monthlyMinutes: number;
     message: string;
 }
