@@ -24,7 +24,7 @@ export class GuildsService {
         } else {
             await guildDb.insert(guildData);
             console.log("Created")
-            return { guildData };
+            return guildData;
         }
     }
 
@@ -36,7 +36,7 @@ export class GuildsService {
 
         if (guild) {
             await guildDb.update(guildId, guildData);
-            return { guildData };
+            return guildData;
         } else {
             return { "message": "Guild not found" }
         }
@@ -64,7 +64,7 @@ export class GuildsService {
             }
 
             case "message": {
-                var members = await membersDb.find({ where: { guildId, hourlyMsg: MoreThan(0) }, order: { hourlyMsg: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, hourlyMinutes: MoreThan(0) }, order: { hourlyMinutes: "DESC"}, skip: start, take: amount });
             }
         }
 
@@ -85,7 +85,7 @@ export class GuildsService {
             }
 
             case "message": {
-                var members = await membersDb.find({ where: { guildId, dailyMsg: MoreThan(0) }, order: { dailyMsg: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, dailyMinutes: MoreThan(0) }, order: { dailyMinutes: "DESC"}, skip: start, take: amount });
             }
         }
 
@@ -106,7 +106,7 @@ export class GuildsService {
             }
 
             case "message": {
-                var members = await membersDb.find({ where: { guildId, weeklyMsg: MoreThan(0) }, order: { weeklyMsg: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, weeklyMinutes: MoreThan(0) }, order: { weeklyMinutes: "DESC"}, skip: start, take: amount });
             }
         }
 
@@ -127,7 +127,7 @@ export class GuildsService {
             }
 
             case "message": {
-                var members = await membersDb.find({ where: { guildId, monthlyMsg: MoreThan(0) }, order: { monthlyMsg: "DESC"}, skip: start, take: amount });
+                var members = await membersDb.find({ where: { guildId, monthlyMinutes: MoreThan(0) }, order: { monthlyMinutes: "DESC"}, skip: start, take: amount });
             }
         }
 

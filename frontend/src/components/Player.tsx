@@ -7,7 +7,7 @@ const Player = ({ player, type }: { player: any, type: string }) => {
             <div className="ml-4">
                 <h3 className="text-xl font-bold">{player.username}</h3>
                 <p className="text-sm">{type.charAt(0).toUpperCase() + type.slice(1)} Xp: {StyleNumber(player[type + "Xp"])}</p>
-                <p className="text-sm">{type.charAt(0).toUpperCase() + type.slice(1)} Messages: {StyleNumber(player[type + "Msg"])}</p>
+                <p className="text-sm">{type.charAt(0).toUpperCase() + type.slice(1)} Messages: {StyleNumber(player[type + "Minutes"])}</p>
             </div>
         </div>
     );

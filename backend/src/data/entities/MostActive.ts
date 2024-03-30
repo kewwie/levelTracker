@@ -5,12 +5,18 @@ export class MostActive {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column()
+    @Column({ type: "varchar" })
     guildId: string;
 
-    @Column()
+    @Column({ type: "varchar" })
+    leaderboard: string;
+
+    @Column({ type: "varchar" })
     type: string;
 
-    @Column()
+    @Column({ type: "varchar" })
     userId: string;
+
+    @Column({ type: "int" })
+    amount: number;
 }

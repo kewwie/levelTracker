@@ -55,9 +55,9 @@ export const Download = async (guildId: string, type: string) => {
 
         if (existingMember) {
             let xpGain = member.xp.totalXp - existingMember.xp;
-            let msgGain = member.messageCount - existingMember.messages;
+            let minutesGain = member.messageCount - existingMember.minutes;
 
-            if (msgGain > 0 || xpGain > 0 || member.rank !== existingMember.rank) {
+            if (minutesGain > 0 || xpGain > 0 || member.rank !== existingMember.rank) {
                 var averageXp = existingMember.averageXp;
 
                 if (xpGain < 100) {
@@ -77,11 +77,11 @@ export const Download = async (guildId: string, type: string) => {
                     dailyXp: existingMember.dailyXp + xpGain,
                     weeklyXp: existingMember.weeklyXp + xpGain,
                     monthlyXp: existingMember.monthlyXp + xpGain,
-                    messages: member.messageCount,
-                    hourlyMsg: existingMember.hourlyMsg + msgGain,
-                    dailyMsg: existingMember.dailyMsg + msgGain,
-                    weeklyMsg: existingMember.weeklyMsg + msgGain,
-                    monthlyMsg: existingMember.monthlyMsg + msgGain
+                    minutes: member.messageCount,
+                    hourlyMinutes: existingMember.hourlyMinutes + minutesGain,
+                    dailyMinutes: existingMember.dailyMinutes + minutesGain,
+                    weeklyMinutes: existingMember.weeklyMinutes + minutesGain,
+                    monthlyMinutes: existingMember.monthlyMinutes + minutesGain
                 });
             }
 
@@ -97,7 +97,7 @@ export const Download = async (guildId: string, type: string) => {
                 rank: member.rank,
                 level: member.level,
                 xp: member.xp.totalXp,
-                messages: member.messageCount
+                minutes: member.messageCount
             });
         }
     }
@@ -119,22 +119,27 @@ export const ResetLeaderboard = async (type: string) => {
     switch (type) {
         case "hourly": {
             for (let server of await guildDb.find()) {
-                let ActiveMember = await membersDb.findOne({
+                let ActiveXpMember = await membersDb.findOne({
                     where: { guildId: server.id },
                     order: { hourlyXp: "DESC" }
                 });
+                let ActiveMinutesMember = await membersDb.findOne({
+                    where: { guildId: server.id },
+                    order: { hourlyMinutes: "DESC" }
+                });
+
                 
-                if (ActiveMember) {
-                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, type: "hourly" } });
+                if (ActiveXpMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, leaderboard: "xp", type: "hourly" } });
                     if (guild) {
-                        mostActiveDb.update({ guildId: server.id }, { userId: ActiveMember.userId });
+                        mostActiveDb.update({ guildId: server.id }, { userId: ActiveXpMember.userId, amount: ActiveXpMember.hourlyXp });
                     } else {
-                        mostActiveDb.insert({ guildId: server.id, type: "hourly", userId: ActiveMember.userId });
+                        mostActiveDb.insert({ guildId: server.id, leaderboard: "xp", type: "hourly", userId: ActiveXpMember.userId, amount: ActiveXpMember.hourlyXp });
                     }
                 }
             }
 
-            membersDb.update({}, { hourlyXp: 0, hourlyMsg: 0 });
+            membersDb.update({}, { hourlyXp: 0, hourlyMinutes: 0 });
             break;
         }
 
@@ -143,7 +148,7 @@ export const ResetLeaderboard = async (type: string) => {
                 let coinsDb = await dataSource.getRepository(Coins);
 
                 let coins = member.dailyXp / 100;
-                if (coins <= 0) { break; }
+                if (coins < 1) { break; }
                 let existingCoins = await coinsDb.findOne({ where: { userId: member.userId } });
 
                 if (existingCoins) {
@@ -154,64 +159,76 @@ export const ResetLeaderboard = async (type: string) => {
             };
 
             for (let server of await guildDb.find()) {
-                let ActiveMember = await membersDb.findOne({
+                let ActiveXpMember = await membersDb.findOne({
                     where: { guildId: server.id },
                     order: { dailyXp: "DESC" }
                 });
+                let ActiveMinutesMember = await membersDb.findOne({
+                    where: { guildId: server.id },
+                    order: { dailyMinutes: "DESC" }
+                });
                 
-                if (ActiveMember) {
-                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, type: "daily" } });
+                if (ActiveXpMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, leaderboard: "xp", type: "daily" } });
                     if (guild) {
-                        mostActiveDb.update({ guildId: server.id }, { userId: ActiveMember.userId });
+                        mostActiveDb.update({ guildId: server.id }, {userId: ActiveXpMember.userId, amount: ActiveXpMember.dailyXp });
                     } else {
-                        mostActiveDb.insert({ guildId: server.id, type: "daily", userId: ActiveMember.userId });
+                        mostActiveDb.insert({ guildId: server.id, leaderboard: "xp", type: "daily", userId: ActiveXpMember.userId, amount: ActiveXpMember.dailyXp });
                     }
                 }
             }
             
-            membersDb.update({}, { dailyXp: 0, dailyMsg: 0 });
+            membersDb.update({}, { dailyXp: 0, dailyMinutes: 0 });
             break;
         }
 
         case "weekly": {
             for (let server of await guildDb.find()) {
-                let ActiveMember = await membersDb.findOne({
+                let ActiveXpMember = await membersDb.findOne({
                     where: { guildId: server.id },
                     order: { weeklyXp: "DESC" }
                 });
+                let ActiveMinutesMember = await membersDb.findOne({
+                    where: { guildId: server.id },
+                    order: { weeklyMinutes: "DESC" }
+                });
                 
-                if (ActiveMember) {
-                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, type: "weekly" } });
+                if (ActiveXpMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, leaderboard: "xp", type: "weekly" } });
                     if (guild) {
-                        mostActiveDb.update({ guildId: server.id }, { userId: ActiveMember.userId });
+                        mostActiveDb.update({ guildId: server.id }, { userId: ActiveXpMember.userId, amount: ActiveXpMember.weeklyXp});
                     } else {
-                        mostActiveDb.insert({ guildId: server.id, type: "weekly", userId: ActiveMember.userId });
+                        mostActiveDb.insert({ guildId: server.id, leaderboard: "xp", type: "weekly", userId: ActiveXpMember.userId, amount: ActiveXpMember.weeklyXp});
                     }
                 }
             }
 
-            membersDb.update({}, { weeklyXp: 0, weeklyMsg: 0 });
+            membersDb.update({}, { weeklyXp: 0, weeklyMinutes: 0 });
             break;
         }
 
         case "monthly": {
             for (let server of await guildDb.find()) {
-                let ActiveMember = await membersDb.findOne({
+                let ActiveXpMember = await membersDb.findOne({
                     where: { guildId: server.id },
                     order: { monthlyXp: "DESC" }
                 });
+                let ActiveMinutesMember = await membersDb.findOne({
+                    where: { guildId: server.id },
+                    order: { monthlyMinutes: "DESC" }
+                });
                 
-                if (ActiveMember) {
-                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, type: "monthly" } });
+                if (ActiveXpMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, leaderboard: "xp", type: "monthly" } });
                     if (guild) {
-                        mostActiveDb.update({ guildId: server.id }, { userId: ActiveMember.userId });
+                        mostActiveDb.update({ guildId: server.id }, { userId: ActiveXpMember.userId, amount: ActiveXpMember.monthlyXp});
                     } else {
-                        mostActiveDb.insert({ guildId: server.id, type: "monthly", userId: ActiveMember.userId });
+                        mostActiveDb.insert({ guildId: server.id, leaderboard: "xp", type: "monthly", userId: ActiveXpMember.userId, amount: ActiveXpMember.monthlyXp});
                     }
                 }
             }
 
-            membersDb.update({}, { monthlyXp: 0, monthlyMsg: 0 });
+            membersDb.update({}, { monthlyXp: 0, monthlyMinutes: 0 });
             break;
         }
             

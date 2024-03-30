@@ -48,17 +48,17 @@ export class Member {
     monthlyXp: number;
 
     @Column({ type: 'int' })
-    messages: number;
+    minutes: number;
 
     @Column({ type: 'int', default: 0 })
-    hourlyMsg: number;
+    hourlyMinutes: number;
 
     @Column({ type: 'int', default: 0 })
-    dailyMsg: number;
+    dailyMinutes: number;
 
     @Column({ type: 'int', default: 0 })
-    weeklyMsg: number;
+    weeklyMinutes: number;
 
     @Column({ type: 'int', default: 0 })
-    monthlyMsg: number;
+    monthlyMinutes: number;
 }

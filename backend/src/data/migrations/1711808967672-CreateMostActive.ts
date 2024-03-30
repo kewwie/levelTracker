@@ -19,12 +19,20 @@ export class CreateMostActive1711808967672 implements MigrationInterface {
                         type: "varchar",
                     },
                     {
+                        name: "leaderboard",
+                        type: 'varchar',
+                    },
+                    {
                         name: "type",
                         type: 'varchar',
                     },
                     {
                         name: "userId",
                         type: 'varchar',
+                    },
+                    {
+                        name: "amount",
+                        type: 'int',
                     }
                 ]
         }));
