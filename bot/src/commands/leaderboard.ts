@@ -22,8 +22,8 @@ export const command: Command = {
                         value: "xp"
                     },
                     {
-                        name: "Message Leaderboard",
-                        value: "message"
+                        name: "Minutes Leaderboard",
+                        value: "minutes"
                     }
                 ]
             },
@@ -96,8 +96,8 @@ export const command: Command = {
                     value = player[time + "Xp"];
                     break;
 
-                case "message":
-                    value = player[time + "Msg"];
+                case "minutes":
+                    value = player[time + "Minutes"];
                     break;
             }
 

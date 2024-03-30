@@ -33,12 +33,6 @@ export const command: Command = {
             env.INTERNAL_API + `/level?` + new URLSearchParams({ level: String(data.level + 1) })
         ).then(res => res.json())); 
 
-        /*let activity = new Array();
-        activity.push(`Hourly: ${StyleNumber(data.hourlyXp)} / ${StyleNumber(data.hourlyMsg)}`);
-        activity.push(`Daily: ${StyleNumber(data.dailyXp)} / ${StyleNumber(data.dailyMsg)}`);
-        activity.push(`Weekly: ${StyleNumber(data.weeklyXp)} / ${StyleNumber(data.weeklyMsg)}`);
-        activity.push(`Monthly: ${StyleNumber(data.monthlyXp)} / ${StyleNumber(data.monthlyMsg)}`);*/
-        
         var embed = new EmbedBuilder()
             .setColor("#0099ff")
             .setAuthor({ name: data.tag, iconURL: data.avatarUrl })
@@ -48,12 +42,9 @@ export const command: Command = {
                 { name: "Average XP", value: `${StyleNumber(data.averageXp || 20)}`, inline: true },
 
                 { name: "Total", value: `${StyleNumber(data.messages)} Messages \n${StyleNumber(data.xp)} Xp`, inline: true },
-                //{ name: "Activity (XP / Messages)", value: activity.join("\n"), inline: true},
-
-                //{ name: "To Level Up", value: `${((data.xp - data.xp))} Xp \n${(((data.xp - data.xp) / (data.averageXp || 20)))} Msgs`, inline: true },
             )
             .setTimestamp()
-            .setFooter({ text: `You need ${StyleNumber(xp)} XP to level up` })
+            .setFooter({ text: `You need to chat${StyleNumber((xp - data.xp) / (data.averageXp || 20))} minutes to level up` })
     
         await interaction.reply({ embeds: [embed], ephemeral: false });
     }

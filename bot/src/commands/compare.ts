@@ -64,11 +64,11 @@ export const command: Command = {
 				`**Daily Xp:** ${StyleNumber(user.dailyXp)}`,
 				`**Weekly Xp:** ${StyleNumber(user.weeklyXp)}`,
 				`**Monthly Xp:** ${StyleNumber(user.monthlyXp)}`,
-				`**Messages:** ${StyleNumber(user.messages)}`,
-				`**Hourly Messages:** ${StyleNumber(user.hourlyMsg)}`,
-				`**Daily Messages:** ${StyleNumber(user.dailyMsg)}`,
-				`**Weekly Messages:** ${StyleNumber(user.weeklyMsg)}`,
-				`**Monthly Messages:** ${StyleNumber(user.monthlyMsg)}`,
+				`**Minutes:** ${StyleNumber(user.messages)}`,
+				`**Hourly Minutes:** ${StyleNumber(user.hourlyMsg)}`,
+				`**Daily Minutes:** ${StyleNumber(user.dailyMsg)}`,
+				`**Weekly Minutes:** ${StyleNumber(user.weeklyMsg)}`,
+				`**Monthly Minutes:** ${StyleNumber(user.monthlyMsg)}`,
 			];
 			return userStats.join("\n");
 		}
