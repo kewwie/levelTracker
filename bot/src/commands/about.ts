@@ -14,7 +14,7 @@ export const command: Command = {
 			.setColor("#0099ff")
 			.setTitle(`About ${client.user?.username}`)
 			.addFields(
-				{ name: "Developer", value: "<@292948682884775937>", inline: true },
+				{ name: "Developer", value: "kewi", inline: true },
 				{ name: "Discord Latency", value: `${Math.round(client.ws.ping)}ms`, inline: true },
 			)
 			.setTimestamp();
