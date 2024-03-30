@@ -1,5 +1,6 @@
 import axios from "axios";
 
+import { MoreThan } from "typeorm";
 import { dataSource } from "./data/datasource";
 import { Member } from "./data/entities/Member";
 import { Coins } from "./data/entities/Coins";
@@ -138,20 +139,17 @@ export const ResetLeaderboard = async (type: string) => {
         }
 
         case "daily": {
-            for (let member of await membersDb.find()) {
-                let user = await membersDb.findOne({ where: { userId: member.userId } });
-
+            for (let member of await membersDb.find({ where: { dailyXp: MoreThan(0) } })) {
                 let coinsDb = await dataSource.getRepository(Coins);
 
-                if (user) {
-                    let coins = Math.floor(user.dailyXp / 100);
-                    let existingCoins = await coinsDb.findOne({ where: { userId: member.userId } });
+                let coins = member.dailyXp / 100;
+                if (coins <= 0) { break; }
+                let existingCoins = await coinsDb.findOne({ where: { userId: member.userId } });
 
-                    if (existingCoins) {
-                        coinsDb.update({ userId: member.userId }, { coins: existingCoins.coins + coins });
-                    } else {
-                        coinsDb.insert({ userId: member.userId, coins });
-                    }
+                if (existingCoins) {
+                    coinsDb.update({ userId: member.userId }, { coins: existingCoins.coins + coins });
+                } else {
+                    coinsDb.insert({ userId: member.userId, coins });
                 }
             };
 
