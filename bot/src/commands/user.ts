@@ -22,7 +22,7 @@ export const command: Command = {
     },
     async execute(client, interaction) {
         let data: MemberResponse  = await fetch(
-            env.INTERNAL_API + "/api/guilds/" + interaction.guildId + "/users/" + (interaction.options.get("member")?.value || interaction.user.id), 
+            env.INTERNAL_API + "/guilds/" + interaction.guildId + "/users/" + (interaction.options.get("member")?.value || interaction.user.id), 
         ).then(res => res.json());
 
         if (data.message) {
@@ -30,7 +30,7 @@ export const command: Command = {
         }
 
         var { xp } = (await fetch(
-            env.INTERNAL_API + `/api/level?` + new URLSearchParams({ level: String(data.level + 1) })
+            env.INTERNAL_API + `/level?` + new URLSearchParams({ level: String(data.level + 1) })
         ).then(res => res.json())); 
 
         /*let activity = new Array();
