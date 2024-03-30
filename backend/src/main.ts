@@ -11,22 +11,22 @@ async function bootstrap() {
     await app.listen(2000);
 
     scheduleJob('0 * * * *', () => { 
-        console.log(`[DATABASE] Reset Hourly Leaderboard`);
+        console.log(`[DATABASE] Reset Hourly Leaderboards`);
         ResetLeaderboard("hourly");
     });
 
     scheduleJob('0 0 * * *', () => { 
-        console.log(`[DATABASE] Reset Daily Leaderboard`);
+        console.log(`[DATABASE] Reset Daily Leaderboards`);
         ResetLeaderboard("daily");
     });
 
     scheduleJob('0 0 * * 1', () => { 
-        console.log(`[DATABASE] Reset Weekly Leaderboard`);
+        console.log(`[DATABASE] Reset Weekly Leaderboards`);
         ResetLeaderboard("weekly");
     });
 
     scheduleJob('0 0 1 * *', () => { 
-        console.log(`[DATABASE] Reset Monthly Leaderboard`);
+        console.log(`[DATABASE] Reset Monthly Leaderboards`);
         ResetLeaderboard("monthly");
     });
 
@@ -34,7 +34,7 @@ async function bootstrap() {
         let guilds = await dataSource.getRepository(Guild).find();
 
         for (let guild of guilds) {
-            console.log("[DATABASE] [LOOP] " + guild.id)
+            console.log(`[DATABASE] [LOOP] [${guild.id}] ${guild.name}`);
             Download(guild.id, guild.type);
         }
     }, 60 * 1000) // 1 Minute
