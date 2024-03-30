@@ -8,11 +8,16 @@ export class CreateMostActive1711808967672 implements MigrationInterface {
                 name: "most_active",
                 columns: [
                     {
+                        name: "id",
+                        type: "int",
+                        isPrimary: true,
+                        isGenerated: true,
+                        generationStrategy: "increment"
+                    },
+                    {
                         name: "guildId",
                         type: "varchar",
-                        isPrimary: true,
                     },
-
                     {
                         name: "type",
                         type: 'varchar',
