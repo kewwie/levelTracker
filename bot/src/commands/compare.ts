@@ -46,8 +46,8 @@ export const command: Command = {
 			return;
 		}
 
-		var userData1: MemberResponse = (await fetch(env.INTERNAL_URL + "/api/guilds/" + interaction.guildId + "/users/" + user1).then(res => res.json()));
-		var userData2: MemberResponse = (await fetch(env.INTERNAL_URL + "/api/guilds/" + interaction.guildId + "/users/" + user2).then(res => res.json()));
+		var userData1: MemberResponse = (await fetch(env.INTERNAL_API + "/guilds/" + interaction.guildId + "/users/" + user1).then(res => res.json()));
+		var userData2: MemberResponse = (await fetch(env.INTERNAL_API + "/guilds/" + interaction.guildId + "/users/" + user2).then(res => res.json()));
 
 		if (userData1.message || userData2.message) {
 			await interaction.reply({content: "One or both of the users doesn't have any stats", ephemeral: true});

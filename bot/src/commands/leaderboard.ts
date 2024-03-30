@@ -61,20 +61,9 @@ export const command: Command = {
         var type = interaction.options.get("type")?.value;
         var time = interaction.options.get("leaderboard")?.value;
 
-        console.log(
-            env.INTERNAL_URL +
-            "/api/guilds/" +
-            interaction.guildId +
-            "/leaderboard" +
-            `/${time}` +
-            `/${type}` +
-            "?" +
-            new URLSearchParams({ page: "0", amount: "10" })
-        )
-
         var data = await fetch(
-            env.INTERNAL_URL +
-            "/api/guilds/" +
+            env.INTERNAL_API +
+            "/guilds/" +
             interaction.guildId +
             "/leaderboard" +
             `/${time}` +
@@ -82,8 +71,6 @@ export const command: Command = {
             "?" +
             new URLSearchParams({ page: "0", amount: "10" })
         ).then(res => res.json());
-
-        console.log(data)
 
         if (data.message) {
             return interaction.reply({ content: data.message, ephemeral: true });

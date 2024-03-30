@@ -35,7 +35,7 @@ export const command: Command = {
 			user = interaction.options.get("member")?.value;
 		}
 
-        var data: MemberResponse = await fetch(env.INTERNAL_URL + "/api/guilds/" + interaction.guildId + "/users/" + user).then(res => res.json());
+        var data: MemberResponse = await fetch(env.INTERNAL_API + "/guilds/" + interaction.guildId + "/users/" + user).then(res => res.json());
 
         if (data.message) {
             await interaction.reply({content: "This user doesn't have any stats", ephemeral: true});
@@ -51,7 +51,7 @@ export const command: Command = {
             }
     
             var { xp } = (await fetch(
-                env.INTERNAL_URL + `/api/level?` + new URLSearchParams({ level: String(wantedLevel) })
+                env.INTERNAL_API + `/level?` + new URLSearchParams({ level: String(wantedLevel) })
             ).then(res => res.json())); 
 
             console.log(xp, data.xp, data.averageXp);
