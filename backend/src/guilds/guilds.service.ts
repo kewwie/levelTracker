@@ -23,17 +23,14 @@ export class GuildsService {
     }
 
     async postGuilds(guildId: string, guildData: GuildData) { // Create Guild
-        console.log("Create");
         let guildDb = await dataSource.getRepository(Guild);
         let guild = await guildDb.findOne({ where: { id: guildId } });
-
-        guildData.id = guildId;
 
         if (guild) {
             return { "message": "Guild already exists" }
         } else {
+            guildData.id = guildId;
             await guildDb.insert(guildData);
-            console.log("Created")
             return guildData;
         }
     }
@@ -41,8 +38,6 @@ export class GuildsService {
     async patchGuilds(guildId: string, guildData: GuildData) { // Update Guild
         let guildDb = await dataSource.getRepository(Guild);
         let guild = await guildDb.findOne({ where: { id: guildId } });
-
-        guildData.id = guildId;
 
         if (guild) {
             await guildDb.update(guildId, guildData);
