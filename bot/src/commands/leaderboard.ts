@@ -112,7 +112,7 @@ export const command: Command = {
 
         let em = new EmbedBuilder({fields: fields})
             .setColor("#0099ff")
-            .setTitle(`${String(time).charAt(0).toUpperCase() + String(time).slice(1)} ${String(type).toUpperCase()} Leaderboard`)
+            .setTitle(`${String(time).charAt(0).toUpperCase() + String(time).slice(1)} ${String(type).charAt(0).toUpperCase() + String(type).slice(1)} Leaderboard`)
             .setTimestamp()
             .setFooter({ text: "Whole leaderboard on the web" });
 
