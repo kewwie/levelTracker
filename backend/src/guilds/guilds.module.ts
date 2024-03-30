@@ -6,6 +6,7 @@ import { Module, NestModule, MiddlewareConsumer, RequestMethod } from '@nestjs/c
 import { GuildsController } from './guilds.controller';
 import { GuildsService } from './guilds.service';
 import { UsersModule } from './users/users.module';
+import { GuildsMiddleware } from './guilds.middleware';
 
 // GET = Read
 // POST = Create
@@ -20,10 +21,11 @@ import { UsersModule } from './users/users.module';
 })
 export class GuildsModule implements NestModule {
         configure(consumer: MiddlewareConsumer) {
-            consumer.apply().forRoutes(
-                { path: '/guilds', method: RequestMethod.POST },
-                { path: '/guilds', method: RequestMethod.PATCH },
-                { path: '/guilds', method: RequestMethod.DELETE },
+            consumer.apply(GuildsMiddleware)
+            .forRoutes(
+                { path: '/guilds/*', method: RequestMethod.POST },
+                { path: '/guilds/*', method: RequestMethod.PATCH },
+                { path: '/guilds/*', method: RequestMethod.DELETE },
             );
         }
 }

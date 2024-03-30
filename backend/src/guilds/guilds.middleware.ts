@@ -19,9 +19,10 @@ export class GuildsMiddleware implements NestMiddleware {
         const token = bearerToken.split(' ')[1];
 
         let loginsDb = await dataSource.getRepository(Login);
-        let loginUser = await loginsDb.findOne({ where: { token } });
+        let loginUser = await loginsDb.findOne({ where: { token: token } });
+        console.log(loginUser);
 
-        if (!loginUser.id) {
+        if (!loginUser || !loginUser.id) {
             return res.status(401).json({ message: 'Unauthorized' });
         }
 
@@ -29,9 +30,9 @@ export class GuildsMiddleware implements NestMiddleware {
         let userData = await userDb.findOne({ where: { id: loginUser.id } });
 
         if (userData.developer === 1) {
-            next();
+            return next();
+        } else {
+            return res.status(401).json({ message: 'Unauthorized' });
         }
-
-        return res.status(401).json({ message: 'Unauthorized' });
     }
 }
