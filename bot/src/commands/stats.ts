@@ -33,10 +33,10 @@ export const command: Command = {
             .setColor("#0099ff")
             .setAuthor({ name: data.tag, iconURL: data.avatarUrl })
             .addFields(
-                { name: "Hourly", value: `${StyleNumber(data.hourlyMsg)} Minutes\n${StyleNumber(data.hourlyXp)} XP`, inline: true },
-                { name: "Daily", value: `${StyleNumber(data.dailyMsg)} Minutes\n${StyleNumber(data.dailyXp)} XP`, inline: true },
-                { name: "Weekly", value: `${StyleNumber(data.weeklyMsg)} Minutes\n${StyleNumber(data.weeklyXp)} XP`, inline: true },
-                { name: "Monthly", value: `${StyleNumber(data.monthlyMsg)} Minutes\n${StyleNumber(data.monthlyXp)} XP`, inline: true },
+                { name: "Hourly", value: `${StyleNumber(data.hourlyMinutes)} Minutes\n${StyleNumber(data.hourlyXp)} XP`, inline: true },
+                { name: "Daily", value: `${StyleNumber(data.dailyMinutes)} Minutes\n${StyleNumber(data.dailyXp)} XP`, inline: true },
+                { name: "Weekly", value: `${StyleNumber(data.weeklyMinutes)} Minutes\n${StyleNumber(data.weeklyXp)} XP`, inline: true },
+                { name: "Monthly", value: `${StyleNumber(data.monthlyMinutes)} Minutes\n${StyleNumber(data.monthlyXp)} XP`, inline: true },
             )
             .setTimestamp()
             .setFooter({ text: `You can view a leaderboard about these stats.` })
