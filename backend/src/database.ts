@@ -2,6 +2,9 @@ import axios from "axios";
 
 import { dataSource } from "./data/datasource";
 import { Member } from "./data/entities/Member";
+import { Coins } from "./data/entities/Coins";
+import { Guild } from "./data/entities/Guild";
+import { MostActive } from "./data/entities/MostActive";
 
 const fetch = async (url) => {
 	const response: any = await axios.get(url)
@@ -46,6 +49,7 @@ export const Download = async (guildId: string, type: string) => {
     let membersDb = await dataSource.getRepository(Member);
 
     for (let member of leaderboard) {
+        if (member.level < 10) { break; }
         let existingMember = await membersDb.findOne({ where: {guildId: guildId, userId: member.id} });
 
         if (existingMember) {
@@ -108,24 +112,107 @@ export const Download = async (guildId: string, type: string) => {
 
 export const ResetLeaderboard = async (type: string) => {
     let membersDb = await dataSource.getRepository(Member);
+    let guildDb = await dataSource.getRepository(Guild);
+    let mostActiveDb = await dataSource.getRepository(MostActive);
 
     switch (type) {
         case "hourly": {
+            for (let server of await guildDb.find()) {
+                let ActiveMember = await membersDb.findOne({
+                    where: { guildId: server.id },
+                    order: { hourlyXp: "DESC" }
+                });
+                
+                if (ActiveMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, type: "hourly" } });
+                    if (guild) {
+                        mostActiveDb.update({ guildId: server.id }, { userId: ActiveMember.userId });
+                    } else {
+                        mostActiveDb.insert({ guildId: server.id, type: "hourly", userId: ActiveMember.userId });
+                    }
+                }
+            }
+
             membersDb.update({}, { hourlyXp: 0, hourlyMsg: 0 });
             break;
         }
 
         case "daily": {
+            for (let member of await membersDb.find()) {
+                let user = await membersDb.findOne({ where: { userId: member.userId } });
+
+                let coinsDb = await dataSource.getRepository(Coins);
+
+                if (user) {
+                    let coins = Math.floor(user.dailyXp / 100);
+                    let existingCoins = await coinsDb.findOne({ where: { userId: member.userId } });
+
+                    if (existingCoins) {
+                        coinsDb.update({ userId: member.userId }, { coins: existingCoins.coins + coins });
+                    } else {
+                        coinsDb.insert({ userId: member.userId, coins });
+                    }
+                }
+            };
+
+            for (let server of await guildDb.find()) {
+                let ActiveMember = await membersDb.findOne({
+                    where: { guildId: server.id },
+                    order: { dailyXp: "DESC" }
+                });
+                
+                if (ActiveMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, type: "daily" } });
+                    if (guild) {
+                        mostActiveDb.update({ guildId: server.id }, { userId: ActiveMember.userId });
+                    } else {
+                        mostActiveDb.insert({ guildId: server.id, type: "daily", userId: ActiveMember.userId });
+                    }
+                }
+            }
+            
             membersDb.update({}, { dailyXp: 0, dailyMsg: 0 });
             break;
         }
 
         case "weekly": {
+            for (let server of await guildDb.find()) {
+                let ActiveMember = await membersDb.findOne({
+                    where: { guildId: server.id },
+                    order: { weeklyXp: "DESC" }
+                });
+                
+                if (ActiveMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, type: "weekly" } });
+                    if (guild) {
+                        mostActiveDb.update({ guildId: server.id }, { userId: ActiveMember.userId });
+                    } else {
+                        mostActiveDb.insert({ guildId: server.id, type: "weekly", userId: ActiveMember.userId });
+                    }
+                }
+            }
+
             membersDb.update({}, { weeklyXp: 0, weeklyMsg: 0 });
             break;
         }
 
         case "monthly": {
+            for (let server of await guildDb.find()) {
+                let ActiveMember = await membersDb.findOne({
+                    where: { guildId: server.id },
+                    order: { monthlyXp: "DESC" }
+                });
+                
+                if (ActiveMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, type: "monthly" } });
+                    if (guild) {
+                        mostActiveDb.update({ guildId: server.id }, { userId: ActiveMember.userId });
+                    } else {
+                        mostActiveDb.insert({ guildId: server.id, type: "monthly", userId: ActiveMember.userId });
+                    }
+                }
+            }
+
             membersDb.update({}, { monthlyXp: 0, monthlyMsg: 0 });
             break;
         }
