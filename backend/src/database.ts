@@ -137,6 +137,14 @@ export const ResetLeaderboard = async (type: string) => {
                         mostActiveDb.insert({ guildId: server.id, leaderboard: "xp", type: "hourly", userId: ActiveXpMember.userId, amount: ActiveXpMember.hourlyXp });
                     }
                 }
+                if (ActiveMinutesMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, leaderboard: "minutes", type: "hourly" } });
+                    if (guild) {
+                        mostActiveDb.update({ guildId: server.id }, {userId: ActiveMinutesMember.userId, amount: ActiveMinutesMember.hourlyMinutes });
+                    } else {
+                        mostActiveDb.insert({ guildId: server.id, leaderboard: "minutes", type: "hourly", userId: ActiveMinutesMember.userId, amount: ActiveMinutesMember.hourlyMinutes });
+                    }
+                }
             }
 
             membersDb.update({}, { hourlyXp: 0, hourlyMinutes: 0 });
@@ -176,6 +184,14 @@ export const ResetLeaderboard = async (type: string) => {
                         mostActiveDb.insert({ guildId: server.id, leaderboard: "xp", type: "daily", userId: ActiveXpMember.userId, amount: ActiveXpMember.dailyXp });
                     }
                 }
+                if (ActiveMinutesMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, leaderboard: "minutes", type: "daily" } });
+                    if (guild) {
+                        mostActiveDb.update({ guildId: server.id }, {userId: ActiveMinutesMember.userId, amount: ActiveMinutesMember.dailyMinutes });
+                    } else {
+                        mostActiveDb.insert({ guildId: server.id, leaderboard: "minutes", type: "daily", userId: ActiveMinutesMember.userId, amount: ActiveMinutesMember.dailyMinutes });
+                    }
+                }
             }
             
             membersDb.update({}, { dailyXp: 0, dailyMinutes: 0 });
@@ -201,6 +217,14 @@ export const ResetLeaderboard = async (type: string) => {
                         mostActiveDb.insert({ guildId: server.id, leaderboard: "xp", type: "weekly", userId: ActiveXpMember.userId, amount: ActiveXpMember.weeklyXp});
                     }
                 }
+                if (ActiveMinutesMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, leaderboard: "minutes", type: "weekly" } });
+                    if (guild) {
+                        mostActiveDb.update({ guildId: server.id }, {userId: ActiveMinutesMember.userId, amount: ActiveMinutesMember.weeklyMinutes });
+                    } else {
+                        mostActiveDb.insert({ guildId: server.id, leaderboard: "minutes", type: "weekly", userId: ActiveMinutesMember.userId, amount: ActiveMinutesMember.weeklyMinutes });
+                    }
+                }
             }
 
             membersDb.update({}, { weeklyXp: 0, weeklyMinutes: 0 });
@@ -224,6 +248,14 @@ export const ResetLeaderboard = async (type: string) => {
                         mostActiveDb.update({ guildId: server.id }, { userId: ActiveXpMember.userId, amount: ActiveXpMember.monthlyXp});
                     } else {
                         mostActiveDb.insert({ guildId: server.id, leaderboard: "xp", type: "monthly", userId: ActiveXpMember.userId, amount: ActiveXpMember.monthlyXp});
+                    }
+                }
+                if (ActiveMinutesMember) {
+                    let guild = await mostActiveDb.findOne({ where: { guildId: server.id, leaderboard: "minutes", type: "monthly" } });
+                    if (guild) {
+                        mostActiveDb.update({ guildId: server.id }, {userId: ActiveMinutesMember.userId, amount: ActiveMinutesMember.monthlyMinutes });
+                    } else {
+                        mostActiveDb.insert({ guildId: server.id, leaderboard: "minutes", type: "monthly", userId: ActiveMinutesMember.userId, amount: ActiveMinutesMember.monthlyMinutes });
                     }
                 }
             }
