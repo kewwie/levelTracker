@@ -62,7 +62,7 @@ export const command: Command = {
                 .addFields(
                     { name: "Level", value: `${wantedLevel}`, inline: false },
                     { name: "Xp to Level " + wantedLevel, value: `${StyleNumber(xp - data.xp)}`, inline: false },
-                    { name: "Messages to Level " + wantedLevel, value: `${StyleNumber((xp - data.xp) / data.averageXp)} (Minutes)`, inline: false },
+                    { name: "Messages to Level " + wantedLevel, value: `${StyleNumber((xp - data.xp) / data.averageXp || 0)} (Minutes)`, inline: false },
                 )
                 .setTimestamp()
     
