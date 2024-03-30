@@ -73,7 +73,7 @@ export class GuildsService {
                 var members = await membersDb.find({ where: { guildId, hourlyXp: MoreThan(0) }, order: { hourlyXp: "DESC"}, skip: start, take: amount });
             }
 
-            case "message": {
+            case "minutes": {
                 var members = await membersDb.find({ where: { guildId, hourlyMinutes: MoreThan(0) }, order: { hourlyMinutes: "DESC"}, skip: start, take: amount });
             }
         }
@@ -94,7 +94,7 @@ export class GuildsService {
                 var members = await membersDb.find({ where: { guildId, dailyXp: MoreThan(0) }, order: { dailyXp: "DESC"}, skip: start, take: amount });
             }
 
-            case "message": {
+            case "minutes": {
                 var members = await membersDb.find({ where: { guildId, dailyMinutes: MoreThan(0) }, order: { dailyMinutes: "DESC"}, skip: start, take: amount });
             }
         }
@@ -115,7 +115,7 @@ export class GuildsService {
                 var members = await membersDb.find({ where: { guildId, weeklyXp: MoreThan(0) }, order: { weeklyXp: "DESC"}, skip: start, take: amount });
             }
 
-            case "message": {
+            case "minutes": {
                 var members = await membersDb.find({ where: { guildId, weeklyMinutes: MoreThan(0) }, order: { weeklyMinutes: "DESC"}, skip: start, take: amount });
             }
         }
@@ -136,7 +136,7 @@ export class GuildsService {
                 var members = await membersDb.find({ where: { guildId, monthlyXp: MoreThan(0) }, order: { monthlyXp: "DESC"}, skip: start, take: amount });
             }
 
-            case "message": {
+            case "minutes": {
                 var members = await membersDb.find({ where: { guildId, monthlyMinutes: MoreThan(0) }, order: { monthlyMinutes: "DESC"}, skip: start, take: amount });
             }
         }
