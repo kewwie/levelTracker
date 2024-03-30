@@ -10,6 +10,7 @@ import axios from 'axios';
 import { dataSource } from "../data/datasource";
 import { Login } from '../data/entities/Login';
 import { createCipheriv, randomBytes, randomUUID } from 'crypto';
+import { User } from '../data/entities/Users';
 
 @Injectable()
 export class AuthService {
@@ -78,7 +79,6 @@ export class AuthService {
                 expires: t,
                 refreshToken: response.refresh_token,
             });
-            console.log("Login updated");
         } else {
             // Insert a new login
             await loginsDb.insert({
@@ -89,7 +89,26 @@ export class AuthService {
                 expires: t,
                 refreshToken: response.refresh_token,
             });
-            console.log("New login inserted");
+        }
+
+        let userDb = await dataSource.getRepository(User);
+        let existingUser = await userDb.findOne({ where: { id: user.id }});
+        
+        if (existingUser) {
+            await userDb.update(existingUser.id, {
+                username: user.username,
+                discriminator: user.discriminator,
+                tag: user.username + "#" + user.discriminator,
+                avatarUrl: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+            });
+        } else {
+            await userDb.insert({
+                id: user.id,
+                username: user.username,
+                discriminator: user.discriminator,
+                tag: user.username + "#" + user.discriminator,
+                avatarUrl: `https://cdn.discordapp.com/avatars/${user.id}/${user.avatar}.png`,
+            });
         }
 
         res.redirect(`${env.URL}/login/callback?token=${token}`);
