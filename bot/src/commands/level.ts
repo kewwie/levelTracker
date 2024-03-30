@@ -54,7 +54,7 @@ export const command: Command = {
                 env.INTERNAL_API + `/level?` + new URLSearchParams({ level: String(wantedLevel) })
             ).then(res => res.json())); 
 
-            console.log(xp, data.xp, data.averageXp);
+            console.log(xp, data.xp, data.averageXp || 20);
 
             var embed = new EmbedBuilder()
                 .setColor("#0099ff")
@@ -62,10 +62,10 @@ export const command: Command = {
                 .addFields(
                     { name: "Level", value: `${wantedLevel}`, inline: false },
                     { name: "Xp to Level " + wantedLevel, value: `${StyleNumber(xp - data.xp)}`, inline: false },
-                    { name: "Messages to Level " + wantedLevel, value: `${StyleNumber((xp - data.xp) / data.averageXp || 0)} (Minutes)`, inline: false },
+                    { name: "Messages to Level " + wantedLevel, value: `${StyleNumber((xp - data.xp) / (data.averageXp || 20))} (Minutes)`, inline: false },
                 )
                 .setTimestamp()
-    
+
             await interaction.reply({embeds: [embed], ephemeral: false});
         }
     }
