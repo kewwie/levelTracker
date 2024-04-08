@@ -23,7 +23,7 @@ export const Download = async (guildId: string, type: string) => {
     switch(type) {
         case "mee6": {
             let apiUrl = "https://mee6.xyz/api/plugins/levels/leaderboard/";
-            let maxPages = 5;
+            let maxPages = 2;
 
             var leaderboard = [];
 
