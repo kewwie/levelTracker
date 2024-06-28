@@ -1,24 +1,7 @@
 version: "3"
 name: "levels"
 
-services:
-  nginx:
-    container_name: nginx
-    restart: unless-stopped
-    build:
-      context: ./nginx
-      dockerfile: Dockerfile
-      args:
-        - DOMAIN=${DOMAIN:?}
-        - PORT=${PORT:?}
-    ports:
-      - "${PORT:?}:${PORT:?}"
-    volumes:
-      - ./nginx:/levels/nginx
-    depends_on:
-      - frontend
-      - backend
-      
+services:    
   mysql:
     image: mysql:8
     container_name: mysql
@@ -41,42 +24,18 @@ services:
     container_name: migrate
     build:
       context: .
-      dockerfile: ./backend/.docker/Dockerfile
+      dockerfile: ./migrate/.docker/Dockerfile
     depends_on:
       mysql:
         condition: service_healthy
     command: ["npm", "run", "migrate:run"]
 
-  backend:
-    container_name: backend
+  app:
+    container_name: app
     restart: unless-stopped
     build:
       context: .
-      dockerfile: ./backend/.docker/Dockerfile
-    depends_on:
-      migrate:
-        condition: service_completed_successfully
-    ports:
-      - "2000:2000"
-    command: ["npm", "run", "start"]
-
-  bot:
-    container_name: bot
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: ./bot/.docker/Dockerfile
-    depends_on:
-      migrate:
-        condition: service_completed_successfully
-    command: ["npm", "run", "start"]
-
-  frontend:
-    container_name: frontend
-    restart: unless-stopped
-    build:
-      context: .
-      dockerfile: ./frontend/.docker/Dockerfile
+      dockerfile: ./app/.docker/Dockerfile
     depends_on:
       migrate:
         condition: service_completed_successfully
