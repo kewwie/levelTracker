@@ -10,8 +10,7 @@ We may collect and store certain information about you when you use our Discord 
 
 - Your Discord username and user ID
 - Any information you choose to provide in your Discord profile
-- All levelling infomation in mee6 powered communities
-- Any other information you provide when using our service
+- All levelling infomation in mee6 powered communities, if enabled by you or the community admins.
 
 ## Use of Information
 
